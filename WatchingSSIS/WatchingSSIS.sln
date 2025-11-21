@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{C9674DCB-5085-4A16-B785-4C70DD1589BD}") = "WatchingSSIS", "WatchingSSIS\WatchingSSIS.dtproj", "{707953BD-FD7C-032D-29DA-4194AB9020E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{707953BD-FD7C-032D-29DA-4194AB9020E1}.Development|Default.ActiveCfg = Development
+		{707953BD-FD7C-032D-29DA-4194AB9020E1}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E72F479-4D70-4B3E-B328-430C1E67E98E}
+	EndGlobalSection
+EndGlobal

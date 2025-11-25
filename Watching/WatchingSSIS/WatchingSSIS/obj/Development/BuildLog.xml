@@ -2,13 +2,13 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>WatchingSSIS</Name>
-    <LastWriteTime>2025-11-25T06:01:07.0269757Z</LastWriteTime>
+    <LastWriteTime>2025-11-25T09:02:10.2233952Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
       <Name>Package.dtsx</Name>
-      <LastWriteTime>2025-11-25T06:06:19.4325948Z</LastWriteTime>
+      <LastWriteTime>2025-11-25T09:21:29.9978017Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

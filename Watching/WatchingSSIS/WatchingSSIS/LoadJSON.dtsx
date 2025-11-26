@@ -5,26 +5,72 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="KIMMY"
   DTS:CreatorName="Kimmy\Kimmy"
-  DTS:DTSID="{B7A92EA4-F84B-4643-8832-3ECD6879526D}"
+  DTS:DTSID="{5300AF70-39AC-40AF-A5D2-9B23739DBDA5}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5397.1"
+  DTS:LastModifiedProductVersion="16.0.5685.2"
   DTS:LocaleID="3081"
-  DTS:ObjectName="Package"
+  DTS:ObjectName="LoadJSON"
   DTS:PackageType="5"
-  DTS:VersionBuild="18"
-  DTS:VersionGUID="{374FE7C2-8990-4BA5-A57F-BA3F089F4F1F}">
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{D56284E8-BF51-41F4-8DBE-032E3C433622}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPSYD70278.master]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{75E627E7-2A79-4C0D-9229-8FF4BA05DAF7}"
+      DTS:ObjectName="LAPSYD70278.master">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-LoadJSON-{75E627E7-2A79-4C0D-9229-8FF4BA05DAF7}LAPSYD70278.master;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[LAPSYD70278.watching]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D79963EF-7D9C-49E8-8463-0A8084730BDA}"
+      DTS:ObjectName="LAPSYD70278.watching">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-LoadJSON-{D79963EF-7D9C-49E8-8463-0A8084730BDA}LAPSYD70278.watching;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[watching_createDB.sql]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{49E396A4-3024-45D3-B3C2-715127356EA1}"
+      DTS:ObjectName="watching_createDB.sql">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\kimberly.chan\git\Watching\watching_createDB.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[watching_DDL.sql]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{846C3969-4CE5-4EB7-8227-CE14B1EFCF63}"
+      DTS:ObjectName="watching_DDL.sql">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Users\kimberly.chan\git\Watching\watching_DDL.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Data Flow Task"
+      DTS:refId="Package\Read JSON"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{194C3577-7FB7-4CB1-ACFC-7E22349D21DA}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Data Flow Task"
+      DTS:ObjectName="Read JSON"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -32,31 +78,240 @@
           version="1">
           <components>
             <component
-              refId="Package\Data Flow Task\Multicast 1"
+              refId="Package\Read JSON\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input].Columns[brand_age]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_age"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]" />
+                    <inputColumn
+                      refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input].Columns[brand_founded_year]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_founded_year"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
+                      name="Copy of brand_age"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
+                      name="Copy of brand_founded_year"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read JSON\Multicast"
               componentClassID="Microsoft.Multicast"
               contactInfo="Multicast;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Distributes every input row to every row in one or more outputs. For example, branch your data flow to make a copy of data so that some values can be masked before sharing with external partners."
-              name="Multicast 1">
+              name="Multicast">
               <inputs>
                 <input
-                  refId="Package\Data Flow Task\Multicast 1.Inputs[Multicast Input 1]"
+                  refId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]"
                   name="Multicast Input 1">
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Multicast 1.Outputs[Multicast Output 1]"
+                  refId="Package\Read JSON\Multicast.Outputs[Multicast Output 2]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 2"
+                  synchronousInputId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Read JSON\Multicast.Outputs[Multicast Output 1]"
                   dangling="true"
                   deleteOutputOnPathDetached="true"
                   name="Multicast Output 1"
-                  synchronousInputId="Package\Data Flow Task\Multicast 1.Inputs[Multicast Input 1]">
+                  synchronousInputId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]">
                   <externalMetadataColumns />
                 </output>
               </outputs>
             </component>
             <component
-              refId="Package\Data Flow Task\Script Component"
+              refId="Package\Read JSON\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read JSON\OLE DB Destination.Connections[OleDbConnection]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <externalMetadataColumns
+                    isUsed="True" />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read JSON\Script Component"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;13"
               description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
@@ -401,7 +656,10 @@ public class ScriptMain : UserComponent
         Add rows by calling the AddRow method on the member variable named "<Output Name>Buffer".
         For example, call MyOutputBuffer.AddRow() if your output was named "MyOutput".
         */
-        String jsonFileContent = File.ReadAllText(@"C:\Watching\jsonwatches_final_flat.JSON");
+
+        /// MAKE SURE TO CHANGE FILE PATH
+        String jsonFileContent = File.ReadAllText(@"C:\Users\kimberly.chan\git\Watching\jsonwatches_final_flat.JSON");
+
         /* 
         JavaScriptSerializer js = new JavaScriptSerializer(); 
         List<watching> watches = js.Deserialize<List<watching>>(jsonFileContent);
@@ -422,6 +680,7 @@ public class ScriptMain : UserComponent
             Output0Buffer.gender = watch.gender;
             Output0Buffer.movement = watch.movement;
             Output0Buffer.casematerial = watch.case_material;
+            Output0Buffer.casesizecategory = watch.case_size_category;
             Output0Buffer.casematerialcategory = watch.case_material_category;
             Output0Buffer.waterresistance = watch.water_resistance;
             Output0Buffer.waterresistancecategory = watch.water_resistance_category;
@@ -432,7 +691,6 @@ public class ScriptMain : UserComponent
             Output0Buffer.powerreserve = watch.power_reserve;
             Output0Buffer.dial = watch.dial;
             Output0Buffer.bracelet = watch.bracelet;
-            Output0Buffer.productpricedetail = watch.PRODUCT_NAME_DETAIL;
             Output0Buffer.productpricedetail = watch.PRODUCT_PRICE_DETAIL;
             Output0Buffer.reference = watch.reference;
             Output0Buffer.brandfoundedyear = watch.brand_founded_year;
@@ -441,7 +699,6 @@ public class ScriptMain : UserComponent
             Output0Buffer.waterresistancestandardized = watch.water_resistance_standardized;
             Output0Buffer.pricecategoryimproved = watch.price_category_improved;
             Output0Buffer.casediameternumeric = watch.case_diameter_numeric;
-            Output0Buffer.casesizecategory = watch.case_size_category;
             Output0Buffer.brandprestigelevel = watch.brand_prestige_level;
 
         }
@@ -628,14 +885,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String waterresistance
+    public String casematerialcategory
     {
         set
         {
             this[7] = value;
         }
     }
-    public bool waterresistance_IsNull
+    public bool casematerialcategory_IsNull
     {
         set
         {
@@ -650,14 +907,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String waterresistancecategory
+    public String waterresistance
     {
         set
         {
             this[8] = value;
         }
     }
-    public bool waterresistancecategory_IsNull
+    public bool waterresistance_IsNull
     {
         set
         {
@@ -672,14 +929,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String brandcountry
+    public String waterresistancecategory
     {
         set
         {
             this[9] = value;
         }
     }
-    public bool brandcountry_IsNull
+    public bool waterresistancecategory_IsNull
     {
         set
         {
@@ -694,14 +951,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public Int32 brandage
+    public String brandcountry
     {
         set
         {
             this[10] = value;
         }
     }
-    public bool brandage_IsNull
+    public bool brandcountry_IsNull
     {
         set
         {
@@ -716,14 +973,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String collectionpricetier
+    public String brandage
     {
         set
         {
             this[11] = value;
         }
     }
-    public bool collectionpricetier_IsNull
+    public bool brandage_IsNull
     {
         set
         {
@@ -738,14 +995,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String warrenty
+    public String collectionpricetier
     {
         set
         {
             this[12] = value;
         }
     }
-    public bool warrenty_IsNull
+    public bool collectionpricetier_IsNull
     {
         set
         {
@@ -760,14 +1017,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String powerreserve
+    public String warrenty
     {
         set
         {
             this[13] = value;
         }
     }
-    public bool powerreserve_IsNull
+    public bool warrenty_IsNull
     {
         set
         {
@@ -782,14 +1039,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String dial
+    public String powerreserve
     {
         set
         {
             this[14] = value;
         }
     }
-    public bool dial_IsNull
+    public bool powerreserve_IsNull
     {
         set
         {
@@ -804,14 +1061,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String bracelet
+    public String dial
     {
         set
         {
             this[15] = value;
         }
     }
-    public bool bracelet_IsNull
+    public bool dial_IsNull
     {
         set
         {
@@ -826,14 +1083,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String productpricedetail
+    public String bracelet
     {
         set
         {
             this[16] = value;
         }
     }
-    public bool productpricedetail_IsNull
+    public bool bracelet_IsNull
     {
         set
         {
@@ -848,14 +1105,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String reference
+    public String productpricedetail
     {
         set
         {
             this[17] = value;
         }
     }
-    public bool reference_IsNull
+    public bool productpricedetail_IsNull
     {
         set
         {
@@ -870,14 +1127,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public Int32 brandfoundedyear
+    public String reference
     {
         set
         {
             this[18] = value;
         }
     }
-    public bool brandfoundedyear_IsNull
+    public bool reference_IsNull
     {
         set
         {
@@ -892,14 +1149,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String ispriceoutlier
+    public String brandfoundedyear
     {
         set
         {
             this[19] = value;
         }
     }
-    public bool ispriceoutlier_IsNull
+    public bool brandfoundedyear_IsNull
     {
         set
         {
@@ -914,14 +1171,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public Int32 collectionpopularity
+    public String ispriceoutlier
     {
         set
         {
             this[20] = value;
         }
     }
-    public bool collectionpopularity_IsNull
+    public bool ispriceoutlier_IsNull
     {
         set
         {
@@ -936,14 +1193,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String waterresistancestandardized
+    public String collectionpopularity
     {
         set
         {
             this[21] = value;
         }
     }
-    public bool waterresistancestandardized_IsNull
+    public bool collectionpopularity_IsNull
     {
         set
         {
@@ -958,14 +1215,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String pricecategoryimproved
+    public String waterresistancestandardized
     {
         set
         {
             this[22] = value;
         }
     }
-    public bool pricecategoryimproved_IsNull
+    public bool waterresistancestandardized_IsNull
     {
         set
         {
@@ -980,14 +1237,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public Decimal casediameternumeric
+    public String pricecategoryimproved
     {
         set
         {
             this[23] = value;
         }
     }
-    public bool casediameternumeric_IsNull
+    public bool pricecategoryimproved_IsNull
     {
         set
         {
@@ -1002,14 +1259,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String casesizecategory
+    public Decimal casediameternumeric
     {
         set
         {
             this[24] = value;
         }
     }
-    public bool casesizecategory_IsNull
+    public bool casediameternumeric_IsNull
     {
         set
         {
@@ -1024,14 +1281,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String brandprestigelevel
+    public String casesizecategory
     {
         set
         {
             this[25] = value;
         }
     }
-    public bool brandprestigelevel_IsNull
+    public bool casesizecategory_IsNull
     {
         set
         {
@@ -1046,14 +1303,14 @@ public class Output0Buffer: ScriptBuffer
         }
     }
 
-    public String casematerialcategory
+    public String brandprestigelevel
     {
         set
         {
             this[26] = value;
         }
     }
-    public bool casematerialcategory_IsNull
+    public bool brandprestigelevel_IsNull
     {
         set
         {
@@ -1232,28 +1489,27 @@ namespace watchingNamespace
         public string brand { get; set ; }
         public string collection { get; set ; }
         public string price_category { get; set ; }
-        public  string gender { get; set ; }
+        public string gender { get; set ; }
         public string movement { get; set ; }
         public string case_material { get; set ; }
         public string case_material_category { get; set ; }
         public string water_resistance { get; set ; }
         public string water_resistance_category { get; set; }
         public string brand_country { get; set ; }
-        public int brand_age { get; set ; }
+        public string brand_age { get; set ; }
         public string collection_price_tier { get; set ; }
         public string warrenty {  get; set ; }
         public string power_reserve { get; set ; }
         public string dial {  get; set ; }
         public string bracelet { get; set ; }
-        public string PRODUCT_NAME_DETAIL { get; set ; }
         public string PRODUCT_PRICE_DETAIL { get; set ; }
         public string reference { get; set ; }
-        public int brand_founded_year { get; set ; }
+        public string brand_founded_year { get; set ; }
         public string is_price_outler {  get; set ; }
-        public int collection_popularity { get; set ; }
+        public string collection_popularity { get; set ; }
         public string water_resistance_standardized { get; set ; }
         public string price_category_improved { get; set ; }
-        public int case_diameter_numeric { get; set ; }
+        public decimal case_diameter_numeric { get; set ; }
         public string case_size_category { get; set ; }
         public string brand_prestige_level {  get; set ; }
     }
@@ -1270,7 +1526,7 @@ namespace watchingNamespace
     <msb:CodeName>SC_b39ad74dbd594767a12b183db20ef01a</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>SC_b39ad74dbd594767a12b183db20ef01a</msb:DisplayName>
-    <msb:ProjectId>{B011604B-1E16-479B-AF76-BA648ADE889D}</msb:ProjectId>
+    <msb:ProjectId>{A0532585-9C27-4F8F-BC20-5653053BD8D9}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="SC_b39ad74dbd594767a12b183db20ef01a.csproj" />
@@ -1418,292 +1674,283 @@ namespace SC_b39ad74dbd594767a12b183db20ef01a.Properties {
                     <arrayElement
                       dataType="System.String"><![CDATA[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
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDALR1JWkAAAAAAAAAAOAAIiALATAAADgAAAAIAAAAAAAAalYA
+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
-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
+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
-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
+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
-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
-uQgAAAEAuQgAAAEAPxAAAAIACA8AAAMAMRAAAAQAsA0AAAEA4RAAAAEA4RAAAAEAuQgAAAEAuQgA
-AAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEA
-uQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgA
-AAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgAAAEAuQgJAPsOAQARAPsO
-BgAZAPsOCgApAPsOEAAxAPsOEAA5APsOEABBAPsOEABJAPsOEABRAPsOEABZAPsOEABhAPsOEABp
-APsOBgCxAPsOBgDRAPsOFQDhAPsOBgChAKIIBgChAK0IBgDpAEoRJwDxAPsOBgDxACMJAQDxAPQI
-LAAMAO0OQwAUAOsQUwCZAIsQWAAUAEERXgD5AOcGBgCBAPsOYgCBANsMbACBANMMAQABAfsOEACB
-AFYRBgCBAHwQBgCBAH8QXgChAPsOBgChABcAdgChAPUPfQCpAPsOBgARAVgGgwARAV0RjAC5APsO
-kgDZAPsOBgAuAAsANQEuABMAPgEuABsAXQEuACMAZgEuACsAjwEuADMAjwEuADsAlQEuAEMAZgEu
-AEsApAEuAFMAjwEuAFsAxAFDAGMADgLjAGsADgIBAXsADgIhAXsADgJBAXsADgJhAXsADgKBAXsA
-DgKhAXsADgLBAXsADgLhAXsADgIBAnsADgIhAnsADgJBAnsADgJhAnsADgKBAnsADgKhAnsADgLB
-AnsADgLhAnsADgIBA3sADgIhA3sADgJBA3sADgJhA3sADgKBA3sADgKhA3sADgLBA3sADgLhA3sA
-DgIBBHsADgIhBHsADgJBBHsADgJhBHsADgKBBHsADgLpBnMAXQEJB3MAXQGgCXsADgLACXsADgLg
-CXsADgIACnsADgIgCnsADgJACnsADgJgCnsADgKACnsADgKgCnsADgLACnsADgLgCnsADgIAC3sA
-DgIgC3sADgJAC3sADgJgC3sADgKAC3sADgKgC3sADgLAC3sADgLgC3sADgIADHsADgIgDHsADgJA
-DHsADgJgDHsADgKADHsADgKgDHsADgLADHsADgLgDHsADgIADXsADgIgDXsADgJADXsADgJgDXsA
-DgKADXsADgKgDXsADgLADXsADgLgDXsADgIADnsADgIgDnsADgJADnsADgJgDnsADgKADnsADgKg
-DnsADgLADnsADgLgDnsADgIAD3sADgIgD3sADgJAD3sADgJgD3sADgKAD3sADgKgD3sADgLAD3sA
-DgLgD3sADgIAEHsADgIgEHsADgJAEHsADgJgEHsADgKAEHsADgIbAHIAAwABAAcANwAIADkACQA6
-AAAAfAYVAQAA4goZAQAAjwUVAQAAjQoZAQAAcQ0VAQAAbgsZAQAANBIVAQAAEwwZAQAADA4VAQAA
-oAsZAQAAtBAVAQAA/wsZAQAAbwkVAQAAGgsZAQAA1QUVAQAAngoZAQAARhIVAQAALAwZAQAAtBIV
-AQAAiwwZAQAAMQYdAQAAzgoZAQAAnA4VAQAAzAsZAQAAHxMVAQAAwwwZAQAA5wgVAQAA8goZAQAA
-QgkVAQAACgsZAQAAcxAVAQAA6wsZAQAA5wkVAQAAUAsZAQAABwYVAQAAuQoZAQAA7A0dAQAAhAsZ
-AQAAVQ4VAQAAsgsZAQAA+RIdAQAAowwZAQAA0QEVAQAAZgoZAQAAcwEVAQAARQoZAQAA9AAhAQAA
-JgoZAQAAYhIVAQAATwwZAQAA0AkVAQAAMgsZAQAAdxIVAQAAawwZAQAAQQ4mAQAAxwYrAQAAmxAw
-AQAAfAYVAQAAjwUVAQAAcQ0VAQAAgREVAQAADA4VAQAAtBAVAQAAXQkVAQAAGRIVAQAAwAUVAQAA
-shEVAQAAohIVAQAAIwYdAQAAgg4VAQAAHxMVAQAA1QgVAQAAQgkVAQAAcxAVAQAAcQAVAQAAQAAV
-AQAABwYVAQAA1Q0dAQAAyA4VAQAA3xIdAQAArwEVAQAAVwEVAQAA2gAdAQAA5xEVAQAAtwkVAQEA
-BgADAAEABwAFAAEACAAHAAEACQAJAAEACgALAAEACwANAAEADAAPAAEADQARAAEADgATAAEADwAV
-AAEAEAAXAAEAEQAZAAEAEgAbAAEAEwAdAAEAFAAfAAEAFQAhAAEAFgAjAAEAFwAlAAEAGAAnAAEA
-GQApAAEAGgArAAEAGwAtAAEAHAAvAAEAHQAxAAEAHgAzAAEAHwA1AAEAIAA3AAEAIQA5AAEAIgA7
-AAEAIwA9AAEAJAA/AAEAJQBBAAEAJgBDAAEAJwBFAAEAKABHAAEAKQBJAAEAKgBLAAEAKwBNAAEA
-LABPAAEALQBRAAEALgBTAAEALwBVAAEAMABXAAEAMQBZAAEAMgBbAAEAMwBdAAEANABfAAEANQBh
-AAEANgBjAAEANwBlAAEAOABnAAEAOQBpAAEAOgBrAAEAOwBtAAIARwBvAAIASABxAAEASQBxAAIA
-SgBzAAIATQB1AAEATgB1AAIATwB3AAEAUAB3AAIAUQB5AAEAUgB5AAIAUwB7AAEAVAB7AAIAVQB9
-AAEAVgB9AAIAVwB/AAEAWAB/AAIAWQCBAAEAWgCBAAIAWwCDAAEAXACDAAIAXQCFAAEAXgCFAAIA
-XwCHAAEAYACHAAIAYQCJAAEAYgCJAAIAYwCLAAEAZACLAAIAZQCNAAEAZgCNAAIAZwCPAAEAaACP
-AAIAaQCRAAEAagCRAAIAawCTAAEAbACTAAIAbQCVAAEAbgCVAAIAbwCXAAEAcACXAAIAcQCZAAEA
-cgCZAAIAcwCbAAEAdACbAAIAdQCdAAEAdgCdAAIAdwCfAAEAeACfAAIAeQChAAEAegChAAIAewCj
-AAEAfACjAAIAfQClAAEAfgClAAIAfwCnAAEAgACnAAIAgQCpAAEAggCpAAIAgwCrAAEAhACrADwA
-TAAEgAAAAQAAAAAAAAAAAAAAAACPAAAABAAAAAAAAAAAAAAAmgCzAAAAAAAQAAAAAAAAAAAAAACj
-APcQAAAAABAAAAAAAAAAAAAAAKMAFBEAAAAABAAAAAAAAAAAAAAAmgDkDAAAAAAEAAAAAAAAAAAA
-AACsAA8QAAAAAAAAAAABAAAAVg8AACsAMwAAAAAAAExpc3RgMQBJbnQzMgA8TW9kdWxlPgBHZXRP
-dXRwdXRJRABnZXRfUFJPRFVDVF9QUklDRV9ERVRBSUwAc2V0X1BST0RVQ1RfUFJJQ0VfREVUQUlM
-AGdldF9QUk9EVUNUX05BTUVfREVUQUlMAHNldF9QUk9EVUNUX05BTUVfREVUQUlMAFN5c3RlbS5J
-TwBTQ19iMzlhZDc0ZGJkNTk0NzY3YTEyYjE4M2RiMjBlZjAxYQBtc2NvcmxpYgBnZXRfY2FzZV9k
-aWFtZXRlcl9udW1lcmljAHNldF9jYXNlX2RpYW1ldGVyX251bWVyaWMAc2V0X2Nhc2VkaWFtZXRl
-cm51bWVyaWMAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMATWFya091dHB1dHNGaW5pc2hlZABn
-ZXRfcHJpY2VfY2F0ZWdvcnlfaW1wcm92ZWQAc2V0X3ByaWNlX2NhdGVnb3J5X2ltcHJvdmVkAHNl
-dF9wcmljZWNhdGVnb3J5aW1wcm92ZWQAZ2V0X3dhdGVyX3Jlc2lzdGFuY2Vfc3RhbmRhcmRpemVk
-AHNldF93YXRlcl9yZXNpc3RhbmNlX3N0YW5kYXJkaXplZABzZXRfd2F0ZXJyZXNpc3RhbmNlc3Rh
-bmRhcmRpemVkADxQUk9EVUNUX1BSSUNFX0RFVEFJTD5rX19CYWNraW5nRmllbGQAPFBST0RVQ1Rf
-TkFNRV9ERVRBSUw+a19fQmFja2luZ0ZpZWxkADxjYXNlX2RpYW1ldGVyX251bWVyaWM+a19fQmFj
-a2luZ0ZpZWxkADxwcmljZV9jYXRlZ29yeV9pbXByb3ZlZD5rX19CYWNraW5nRmllbGQAPHdhdGVy
-X3Jlc2lzdGFuY2Vfc3RhbmRhcmRpemVkPmtfX0JhY2tpbmdGaWVsZAA8YnJhbmQ+a19fQmFja2lu
-Z0ZpZWxkADx3YXRlcl9yZXNpc3RhbmNlPmtfX0JhY2tpbmdGaWVsZAA8cmVmZXJlbmNlPmtfX0Jh
-Y2tpbmdGaWVsZAA8YnJhbmRfYWdlPmtfX0JhY2tpbmdGaWVsZAA8bmFtZT5rX19CYWNraW5nRmll
-bGQAPHBvd2VyX3Jlc2VydmU+a19fQmFja2luZ0ZpZWxkADxkaWFsPmtfX0JhY2tpbmdGaWVsZAA8
-Y2FzZV9tYXRlcmlhbD5rX19CYWNraW5nRmllbGQAPGJyYW5kX3ByZXN0aWdlX2xldmVsPmtfX0Jh
-Y2tpbmdGaWVsZAA8Y29sbGVjdGlvbj5rX19CYWNraW5nRmllbGQAPGJyYW5kX2ZvdW5kZWRfeWVh
-cj5rX19CYWNraW5nRmllbGQAPGdlbmRlcj5rX19CYWNraW5nRmllbGQAPGNvbGxlY3Rpb25fcHJp
-Y2VfdGllcj5rX19CYWNraW5nRmllbGQAPGlzX3ByaWNlX291dGxlcj5rX19CYWNraW5nRmllbGQA
-PGJyYWNlbGV0PmtfX0JhY2tpbmdGaWVsZAA8bW92ZW1lbnQ+a19fQmFja2luZ0ZpZWxkADxwcmlj
-ZV9jYXRlZ29yeT5rX19CYWNraW5nRmllbGQAPHdhdGVyX3Jlc2lzdGFuY2VfY2F0ZWdvcnk+a19f
-QmFja2luZ0ZpZWxkADxjYXNlX3NpemVfY2F0ZWdvcnk+a19fQmFja2luZ0ZpZWxkADxjYXNlX21h
-dGVyaWFsX2NhdGVnb3J5PmtfX0JhY2tpbmdGaWVsZAA8YnJhbmRfY291bnRyeT5rX19CYWNraW5n
-RmllbGQAPGNvbGxlY3Rpb25fcG9wdWxhcml0eT5rX19CYWNraW5nRmllbGQAPHdhcnJlbnR5Pmtf
-X0JhY2tpbmdGaWVsZABnZXRfYnJhbmQAc2V0X2JyYW5kAHdhdGNoaW5nTmFtZXNwYWNlAGdldF93
-YXRlcl9yZXNpc3RhbmNlAHNldF93YXRlcl9yZXNpc3RhbmNlAHNldF93YXRlcnJlc2lzdGFuY2UA
-ZGVmYXVsdEluc3RhbmNlAGdldF9yZWZlcmVuY2UAc2V0X3JlZmVyZW5jZQBnZXRfYnJhbmRfYWdl
-AHNldF9icmFuZF9hZ2UAc2V0X2JyYW5kYWdlAElEaXNwb3NhYmxlAFJ1bnRpbWVUeXBlSGFuZGxl
-AEdldFR5cGVGcm9tSGFuZGxlAEZpbGUAZ2V0X25hbWUAc2V0X25hbWUATWljcm9zb2Z0LlNxbFNl
-cnZlci5EdHMuUGlwZWxpbmUAVHlwZQBnZXRfQ3VsdHVyZQBzZXRfQ3VsdHVyZQByZXNvdXJjZUN1
-bHR1cmUAQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UARGlzcG9zZQBFZGl0b3JCcm93c2FibGVTdGF0
-ZQBDb21waWxlckdlbmVyYXRlZEF0dHJpYnV0ZQBEZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRl
-AERlYnVnZ2FibGVBdHRyaWJ1dGUARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEFzc2VtYmx5VGl0
-bGVBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRyaWJ1dGUAVGFyZ2V0RnJhbWV3b3JrQXR0
-cmlidXRlAEFzc2VtYmx5Q29uZmlndXJhdGlvbkF0dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9u
-QXR0cmlidXRlAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0
-QXR0cmlidXRlAEFzc2VtYmx5Q29weXJpZ2h0QXR0cmlidXRlAFNTSVNTY3JpcHRDb21wb25lbnRF
-bnRyeVBvaW50QXR0cmlidXRlAEFzc2VtYmx5Q29tcGFueUF0dHJpYnV0ZQBSdW50aW1lQ29tcGF0
-aWJpbGl0eUF0dHJpYnV0ZQBQcmVFeGVjdXRlAFBvc3RFeGVjdXRlAHZhbHVlAGdldF9wb3dlcl9y
-ZXNlcnZlAHNldF9wb3dlcl9yZXNlcnZlAHNldF9wb3dlcnJlc2VydmUARGVzZXJpYWxpemUAd2F0
-Y2hpbmcAU3lzdGVtLlJ1bnRpbWUuVmVyc2lvbmluZwBzZXRfTWF4SnNvbkxlbmd0aABnZXRfZGlh
-bABzZXRfZGlhbABnZXRfY2FzZV9tYXRlcmlhbABzZXRfY2FzZV9tYXRlcmlhbABzZXRfY2FzZW1h
-dGVyaWFsAERlY2ltYWwAU3lzdGVtLkNvbXBvbmVudE1vZGVsAGdldF9icmFuZF9wcmVzdGlnZV9s
-ZXZlbABzZXRfYnJhbmRfcHJlc3RpZ2VfbGV2ZWwAc2V0X2JyYW5kcHJlc3RpZ2VsZXZlbABzZXRf
-cHJvZHVjdHByaWNlZGV0YWlsAFNDX2IzOWFkNzRkYmQ1OTQ3NjdhMTJiMTgzZGIyMGVmMDFhLmRs
-bABzZXRfY2FzZWRpYW1ldGVybnVtZXJpY19Jc051bGwAc2V0X3ByaWNlY2F0ZWdvcnlpbXByb3Zl
-ZF9Jc051bGwAc2V0X3dhdGVycmVzaXN0YW5jZXN0YW5kYXJkaXplZF9Jc051bGwAc2V0X2JyYW5k
-X0lzTnVsbABzZXRfd2F0ZXJyZXNpc3RhbmNlX0lzTnVsbABzZXRfcmVmZXJlbmNlX0lzTnVsbABz
-ZXRfYnJhbmRhZ2VfSXNOdWxsAHNldF9uYW1lX0lzTnVsbABzZXRfcG93ZXJyZXNlcnZlX0lzTnVs
-bABzZXRfZGlhbF9Jc051bGwAc2V0X2Nhc2VtYXRlcmlhbF9Jc051bGwAc2V0X2JyYW5kcHJlc3Rp
-Z2VsZXZlbF9Jc051bGwAc2V0X3Byb2R1Y3RwcmljZWRldGFpbF9Jc051bGwAc2V0X2NvbGxlY3Rp
-b25fSXNOdWxsAHNldF9icmFuZGZvdW5kZWR5ZWFyX0lzTnVsbABzZXRfZ2VuZGVyX0lzTnVsbABz
-ZXRfaXNwcmljZW91dGxpZXJfSXNOdWxsAHNldF9jb2xsZWN0aW9ucHJpY2V0aWVyX0lzTnVsbABz
-ZXRfYnJhY2VsZXRfSXNOdWxsAHNldF9tb3ZlbWVudF9Jc051bGwAc2V0X3ByaWNlY2F0ZWdvcnlf
-SXNOdWxsAHNldF93YXRlcnJlc2lzdGFuY2VjYXRlZ29yeV9Jc051bGwAc2V0X2Nhc2VzaXplY2F0
-ZWdvcnlfSXNOdWxsAHNldF9jYXNlbWF0ZXJpYWxjYXRlZ29yeV9Jc051bGwAc2V0X2JyYW5kY291
-bnRyeV9Jc051bGwAc2V0X2NvbGxlY3Rpb25wb3B1bGFyaXR5X0lzTnVsbABzZXRfd2FycmVudHlf
-SXNOdWxsAFNldE51bGwAc2V0X0l0ZW0AU3lzdGVtAHJlc291cmNlTWFuAFNjcmlwdE1haW4AU3lz
-dGVtLkNvbmZpZ3VyYXRpb24AU3lzdGVtLkdsb2JhbGl6YXRpb24AU3lzdGVtLldlYi5TY3JpcHQu
-U2VyaWFsaXphdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBnZXRfY29sbGVjdGlvbgBzZXRfY29sbGVj
-dGlvbgBJbnZhbGlkT3BlcmF0aW9uRXhjZXB0aW9uAEN1bHR1cmVJbmZvAE91dHB1dE5hbWVNYXAA
-T3V0cHV0TWFwAGdldF9icmFuZF9mb3VuZGVkX3llYXIAc2V0X2JyYW5kX2ZvdW5kZWRfeWVhcgBz
-ZXRfYnJhbmRmb3VuZGVkeWVhcgBnZXRfZ2VuZGVyAHNldF9nZW5kZXIAT3V0cHV0MEJ1ZmZlcgBQ
-aXBlbGluZUJ1ZmZlcgBTY3JpcHRCdWZmZXIAZ2V0X1Jlc291cmNlTWFuYWdlcgBzZXRfaXNwcmlj
-ZW91dGxpZXIAZ2V0X2NvbGxlY3Rpb25fcHJpY2VfdGllcgBzZXRfY29sbGVjdGlvbl9wcmljZV90
-aWVyAHNldF9jb2xsZWN0aW9ucHJpY2V0aWVyAGdldF9pc19wcmljZV9vdXRsZXIAc2V0X2lzX3By
-aWNlX291dGxlcgBKYXZhU2NyaXB0U2VyaWFsaXplcgBHZXRFbnVtZXJhdG9yAC5jdG9yAC5jY3Rv
-cgBPdXRwdXRJRHMAU3lzdGVtLkRpYWdub3N0aWNzAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2Vy
-dmljZXMAU3lzdGVtLlJlc291cmNlcwBTQ19iMzlhZDc0ZGJkNTk0NzY3YTEyYjE4M2RiMjBlZjAx
-YS5Qcm9wZXJ0aWVzLlJlc291cmNlcy5yZXNvdXJjZXMARGVidWdnaW5nTW9kZXMAU0NfYjM5YWQ3
-NGRiZDU5NDc2N2ExMmIxODNkYjIwZWYwMWEuUHJvcGVydGllcwBWYXJpYWJsZXMAQnVmZmVyQ29s
-dW1uSW5kZXhlcwBHZXRDb2x1bW5JbmRleGVzAFNldHRpbmdzAFN5c3RlbS5XZWIuRXh0ZW5zaW9u
-cwBDb25uZWN0aW9ucwBCdWZmZXJzAEZpbmlzaE91dHB1dHMAQ3JlYXRlTmV3T3V0cHV0Um93cwBP
-YmplY3QAZ2V0X2JyYWNlbGV0AHNldF9icmFjZWxldABTZXRFbmRPZlJvd3NldABvcF9JbXBsaWNp
-dABnZXRfRGVmYXVsdABnZXRfbW92ZW1lbnQAc2V0X21vdmVtZW50AFVzZXJDb21wb25lbnQAUGFy
-ZW50Q29tcG9uZW50AFNjcmlwdENvbXBvbmVudABnZXRfQ3VycmVudABNaWNyb3NvZnQuU3FsU2Vy
-dmVyLlR4U2NyaXB0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuUGlwZWxpbmVIb3N0AFByaW1lT3V0cHV0
-AE1vdmVOZXh0AFJlYWRBbGxUZXh0AEFkZFJvdwBnZXRfQXNzZW1ibHkAZ2V0X3ByaWNlX2NhdGVn
-b3J5AHNldF9wcmljZV9jYXRlZ29yeQBnZXRfd2F0ZXJfcmVzaXN0YW5jZV9jYXRlZ29yeQBzZXRf
-d2F0ZXJfcmVzaXN0YW5jZV9jYXRlZ29yeQBnZXRfY2FzZV9zaXplX2NhdGVnb3J5AHNldF9jYXNl
-X3NpemVfY2F0ZWdvcnkAZ2V0X2Nhc2VfbWF0ZXJpYWxfY2F0ZWdvcnkAc2V0X2Nhc2VfbWF0ZXJp
-YWxfY2F0ZWdvcnkAc2V0X3ByaWNlY2F0ZWdvcnkAc2V0X3dhdGVycmVzaXN0YW5jZWNhdGVnb3J5
-AHNldF9jYXNlc2l6ZWNhdGVnb3J5AHNldF9jYXNlbWF0ZXJpYWxjYXRlZ29yeQBnZXRfYnJhbmRf
-Y291bnRyeQBzZXRfYnJhbmRfY291bnRyeQBzZXRfYnJhbmRjb3VudHJ5AGdldF9jb2xsZWN0aW9u
-X3BvcHVsYXJpdHkAc2V0X2NvbGxlY3Rpb25fcG9wdWxhcml0eQBzZXRfY29sbGVjdGlvbnBvcHVs
-YXJpdHkAZ2V0X3dhcnJlbnR5AHNldF93YXJyZW50eQAAT0MAOgBcAFcAYQB0AGMAaABpAG4AZwBc
-AGoAcwBvAG4AdwBhAHQAYwBoAGUAcwBfAGYAaQBuAGEAbABfAGYAbABhAHQALgBKAFMATwBOAACA
-m0kAcwBOAHUAbABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUA
-dAAgAHQAbwAgAEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABv
-ACAAdABoAGUAIABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBhAGQALgAAEU8AdQB0AHAAdQB0ACAA
-MAAAcVMAQwBfAGIAMwA5AGEAZAA3ADQAZABiAGQANQA5ADQANwA2ADcAYQAxADIAYgAxADgAMwBk
-AGIAMgAwAGUAZgAwADEAYQAuAFAAcgBvAHAAZQByAHQAaQBlAHMALgBSAGUAcwBvAHUAcgBjAGUA
-cwAAAADF8RwLuLBTR7oDhXY71ALmAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFlCwcDDhURPQES
-JBIkBAABDg4GMAEBHgAOCAoBFRI5ARIkBhUSOQESJAggABURPQETAAYVET0BEiQEIAATAAUAARFN
-CAMgAAIJIAMBEkUdCBJJBSACAQgcAwcBCAYAAggSSQ4FIAEdCAgIAAESgIkRgI0FIAASgJEHIAIB
-DhKAkQi3elxWGTTgiQiJhF3NgIDMkQgxvzhWrTZONQMGEhQDBhIYAwYSDAMGElEDBhJdAwYSYQMG
-EiACBg4CBggEIAEBAgUgAQERTQsgBAEIHQgdEkUSSQUgAQESUQQAABJdBAAAEmEFAAEBEmEEAAAS
-IAMAAAEDIAAOAyAACAMoAA4DKAACAygACAQoABFNBAgAEl0ECAASYQQIABIgCAEACAAAAAAAHgEA
-AQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQgBAAIAAAAAACgBACNTQ19iMzlhZDc0ZGJkNTk0
-NzY3YTEyYjE4M2RiMjBlZjAxYQAABQEAAAAADgEACUZETSBHcm91cAAAHwEAGkNvcHlyaWdodCBA
-IEZETSBHcm91cCAyMDI1AABJAQAaLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjcBAFQOFEZyYW1l
-d29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuNwQBAAAAALQAAADOyu++AQAAAJEAAABs
-U3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAu
-MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3Rl
-bS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAABAVgAA
-AAAAAAAAAABaVgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATFYAAAAAAAAAAAAAAABfQ29yRGxs
-TWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+EgAABgJ7AwAABAhvfwAABm84AAAGAnsDAAAECG9bAAAGbxQAAAYCewMAAAQIb10AAAZvFgAABgJ7
+AwAABAhvXwAABm8YAAAGAnsDAAAECG9hAAAGbxoAAAYCewMAAAQIb2MAAAZvHAAABgJ7AwAABAhv
+ZQAABm8eAAAGAnsDAAAECG9nAAAGbyAAAAYCewMAAAQIb2kAAAZvIgAABgJ7AwAABAhvawAABm8k
+AAAGAnsDAAAECG9tAAAGbyYAAAYCewMAAAQIb28AAAZvKAAABgJ7AwAABAhvcQAABm8qAAAGAnsD
+AAAECG9zAAAGbywAAAYCewMAAAQIb3UAAAZvLgAABgJ7AwAABAhvdwAABm8wAAAGAnsDAAAECG95
+AAAGbzIAAAYCewMAAAQIb3sAAAZvNAAABgJ7AwAABAhvfQAABm82AAAGAnsDAAAECG+BAAAGbzoA
+AAYSASgYAAAKOhb+///eDhIB/hYCAAAbbxkAAArcKgBBHAAAAgAAACcAAADxAQAAGAIAAA4AAAAA
+AAAAHgIoPwAABioqAgMEBSgaAAAKKiYCFgMoGwAACipaAywIAhYoHAAACipygQAAcHMdAAAKeiYC
+FwMoGwAACipaAywIAhcoHAAACipygQAAcHMdAAAKeiYCGAMoGwAACipaAywIAhgoHAAACipygQAA
+cHMdAAAKeiYCGQMoGwAACipaAywIAhkoHAAACipygQAAcHMdAAAKeiYCGgMoGwAACipaAywIAhoo
+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
+XggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggA
+AAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEAXggAAAEA
+XggJAKAOAQARAKAOBgAZAKAOCgApAKAOEAAxAKAOEAA5AKAOEABBAKAOEABJAKAOEABRAKAOEABZ
+AKAOEABhAKAOEABpAKAOBgCxAKAOBgDRAKAOFQDhAKAOBgChAEcIBgChAFIIBgDpAOMQJwDxAKAO
+BgDxAMgIAQDxAJkILAAMAJIOQwAUAIQQUwAUANoQWAD5AIwGBgCBAKAOXACBAIAMZgCBAHgMAQAB
+AaAOEACBAO8QBgCBACEQBgCBACQQWAChAKAOBgChABEAcAChAJoPdwCpAKAOBgAJAf0FfQAJAfYQ
+hgC5AKAOjADZAKAOBgAuAAsALQEuABMANgEuABsAVQEuACMAXgEuACsAhwEuADMAhwEuADsAjQEu
+AEMAXgEuAEsAnAEuAFMAhwEuAFsAvAFDAGMABgLjAGsABgIBAXsABgIhAXsABgJBAXsABgJhAXsA
+BgKBAXsABgKhAXsABgLBAXsABgLhAXsABgIBAnsABgIhAnsABgJBAnsABgJhAnsABgKBAnsABgKh
+AnsABgLBAnsABgLhAnsABgIBA3sABgIhA3sABgJBA3sABgJhA3sABgKBA3sABgKhA3sABgLBA3sA
+BgLhA3sABgIBBHsABgIhBHsABgJBBHsABgJhBHsABgLpBnMAVQEJB3MAVQGgCXsABgLACXsABgLg
+CXsABgIACnsABgIgCnsABgJACnsABgJgCnsABgKACnsABgKgCnsABgLACnsABgLgCnsABgIAC3sA
+BgIgC3sABgJAC3sABgJgC3sABgKAC3sABgKgC3sABgLAC3sABgLgC3sABgIADHsABgIgDHsABgJA
+DHsABgJgDHsABgKADHsABgKgDHsABgLADHsABgLgDHsABgIADXsABgIgDXsABgJADXsABgJgDXsA
+BgKADXsABgKgDXsABgLADXsABgLgDXsABgIADnsABgIgDnsABgJADnsABgJgDnsABgKADnsABgKg
+DnsABgLADnsABgLgDnsABgIAD3sABgIgD3sABgJAD3sABgJgD3sABgKAD3sABgKgD3sABgLAD3sA
+BgLgD3sABgIAEHsABgIgEHsABgJAEHsABgIbAGwAAwABAAcANwAIADkACQA6AAAAIQYRAQAAhwoV
+AQAANAURAQAAMgoVAQAAFg0RAQAAEwsVAQAAzRERAQAAuAsVAQAAsQ0RAQAARQsVAQAATRARAQAA
+pAsVAQAAFAkRAQAAvwoVAQAAEBIRAQAAEAwVAQAAegURAQAAQwoVAQAA3xERAQAA0QsVAQAATRIR
+AQAAMAwVAQAA1gURAQAAcwoVAQAAQQ4RAQAAcQsVAQAAuBIRAQAAaAwVAQAAjAgRAQAAlwoVAQAA
+5wgRAQAArwoVAQAAGBARAQAAkAsVAQAAjAkRAQAA9QoVAQAArAURAQAAXgoVAQAAkQ0RAQAAKQsV
+AQAA+g0RAQAAVwsVAQAAkhIRAQAASAwVAQAAmwERAQAACwoVAQAAPQERAQAA6gkVAQAAvgAZAQAA
+ywkVAQAA+xERAQAA9AsVAQAAdQkRAQAA1woVAQAA5g0eAQAAbAYjAQAANBAoAQAAIQYRAQAANAUR
+AQAAFg0RAQAAGhERAQAAsQ0RAQAATRARAQAAAgkRAQAAshERAQAAZQURAQAASxERAQAAOxIRAQAA
+yAURAQAAJw4RAQAAuBIRAQAAeggRAQAA5wgRAQAAGBARAQAAOgARAQAArAURAQAAeg0RAQAAbQ4R
+AQAAeBIRAQAAeQERAQAAIQERAQAApAAZAQAAgBERAQAAXAkRAQEABgADAAEABwAFAAEACAAHAAEA
+CQAJAAEACgALAAEACwANAAEADAAPAAEADQARAAEADgATAAEADwAVAAEAEAAXAAEAEQAZAAEAEgAb
+AAEAEwAdAAEAFAAfAAEAFQAhAAEAFgAjAAEAFwAlAAEAGAAnAAEAGQApAAEAGgArAAEAGwAtAAEA
+HAAvAAEAHQAxAAEAHgAzAAEAHwA1AAEAIAA3AAEAIQA5AAEAIgA7AAEAIwA9AAEAJAA/AAEAJQBB
+AAEAJgBDAAEAJwBFAAEAKABHAAEAKQBJAAEAKgBLAAEAKwBNAAEALABPAAEALQBRAAEALgBTAAEA
+LwBVAAEAMABXAAEAMQBZAAEAMgBbAAEAMwBdAAEANABfAAEANQBhAAEANgBjAAEANwBlAAEAOABn
+AAEAOQBpAAEAOgBrAAEAOwBtAAIARwBvAAIASABxAAEASQBxAAIASgBzAAIATQB1AAEATgB1AAIA
+TwB3AAEAUAB3AAIAUQB5AAEAUgB5AAIAUwB7AAEAVAB7AAIAVQB9AAEAVgB9AAIAVwB/AAEAWAB/
+AAIAWQCBAAEAWgCBAAIAWwCDAAEAXACDAAIAXQCFAAEAXgCFAAIAXwCHAAEAYACHAAIAYQCJAAEA
+YgCJAAIAYwCLAAEAZACLAAIAZQCNAAEAZgCNAAIAZwCPAAEAaACPAAIAaQCRAAEAagCRAAIAawCT
+AAEAbACTAAIAbQCVAAEAbgCVAAIAbwCXAAEAcACXAAIAcQCZAAEAcgCZAAIAcwCbAAEAdACbAAIA
+dQCdAAEAdgCdAAIAdwCfAAEAeACfAAIAeQChAAEAegChAAIAewCjAAEAfACjAAIAfQClAAEAfgCl
+AAIAfwCnAAEAgACnAAIAgQCpAAEAggCpADwATAAEgAAAAQAAAAAAAAAAAAAAAABZAAAABAAAAAAA
+AAAAAAAAlAB9AAAAAAAQAAAAAAAAAAAAAACdAJAQAAAAABAAAAAAAAAAAAAAAJ0ArRAAAAAABAAA
+AAAAAAAAAAAAlACJDAAAAAAEAAAAAAAAAAAAAACmALQPAAAAAAAAAAABAAAA+w4AACsAMwAAAAAA
+AExpc3RgMQA8TW9kdWxlPgBHZXRPdXRwdXRJRABnZXRfUFJPRFVDVF9QUklDRV9ERVRBSUwAc2V0
+X1BST0RVQ1RfUFJJQ0VfREVUQUlMAFN5c3RlbS5JTwBTQ19iMzlhZDc0ZGJkNTk0NzY3YTEyYjE4
+M2RiMjBlZjAxYQBtc2NvcmxpYgBnZXRfY2FzZV9kaWFtZXRlcl9udW1lcmljAHNldF9jYXNlX2Rp
+YW1ldGVyX251bWVyaWMAc2V0X2Nhc2VkaWFtZXRlcm51bWVyaWMAU3lzdGVtLkNvbGxlY3Rpb25z
+LkdlbmVyaWMATWFya091dHB1dHNGaW5pc2hlZABnZXRfcHJpY2VfY2F0ZWdvcnlfaW1wcm92ZWQA
+c2V0X3ByaWNlX2NhdGVnb3J5X2ltcHJvdmVkAHNldF9wcmljZWNhdGVnb3J5aW1wcm92ZWQAZ2V0
+X3dhdGVyX3Jlc2lzdGFuY2Vfc3RhbmRhcmRpemVkAHNldF93YXRlcl9yZXNpc3RhbmNlX3N0YW5k
+YXJkaXplZABzZXRfd2F0ZXJyZXNpc3RhbmNlc3RhbmRhcmRpemVkADxQUk9EVUNUX1BSSUNFX0RF
+VEFJTD5rX19CYWNraW5nRmllbGQAPGNhc2VfZGlhbWV0ZXJfbnVtZXJpYz5rX19CYWNraW5nRmll
+bGQAPHByaWNlX2NhdGVnb3J5X2ltcHJvdmVkPmtfX0JhY2tpbmdGaWVsZAA8d2F0ZXJfcmVzaXN0
+YW5jZV9zdGFuZGFyZGl6ZWQ+a19fQmFja2luZ0ZpZWxkADxicmFuZD5rX19CYWNraW5nRmllbGQA
+PHdhdGVyX3Jlc2lzdGFuY2U+a19fQmFja2luZ0ZpZWxkADxyZWZlcmVuY2U+a19fQmFja2luZ0Zp
+ZWxkADxicmFuZF9hZ2U+a19fQmFja2luZ0ZpZWxkADxuYW1lPmtfX0JhY2tpbmdGaWVsZAA8cG93
+ZXJfcmVzZXJ2ZT5rX19CYWNraW5nRmllbGQAPGRpYWw+a19fQmFja2luZ0ZpZWxkADxjYXNlX21h
+dGVyaWFsPmtfX0JhY2tpbmdGaWVsZAA8YnJhbmRfcHJlc3RpZ2VfbGV2ZWw+a19fQmFja2luZ0Zp
+ZWxkADxjb2xsZWN0aW9uPmtfX0JhY2tpbmdGaWVsZAA8YnJhbmRfZm91bmRlZF95ZWFyPmtfX0Jh
+Y2tpbmdGaWVsZAA8Z2VuZGVyPmtfX0JhY2tpbmdGaWVsZAA8Y29sbGVjdGlvbl9wcmljZV90aWVy
+PmtfX0JhY2tpbmdGaWVsZAA8aXNfcHJpY2Vfb3V0bGVyPmtfX0JhY2tpbmdGaWVsZAA8YnJhY2Vs
+ZXQ+a19fQmFja2luZ0ZpZWxkADxtb3ZlbWVudD5rX19CYWNraW5nRmllbGQAPHByaWNlX2NhdGVn
+b3J5PmtfX0JhY2tpbmdGaWVsZAA8d2F0ZXJfcmVzaXN0YW5jZV9jYXRlZ29yeT5rX19CYWNraW5n
+RmllbGQAPGNhc2Vfc2l6ZV9jYXRlZ29yeT5rX19CYWNraW5nRmllbGQAPGNhc2VfbWF0ZXJpYWxf
+Y2F0ZWdvcnk+a19fQmFja2luZ0ZpZWxkADxicmFuZF9jb3VudHJ5PmtfX0JhY2tpbmdGaWVsZAA8
+Y29sbGVjdGlvbl9wb3B1bGFyaXR5PmtfX0JhY2tpbmdGaWVsZAA8d2FycmVudHk+a19fQmFja2lu
+Z0ZpZWxkAGdldF9icmFuZABzZXRfYnJhbmQAd2F0Y2hpbmdOYW1lc3BhY2UAZ2V0X3dhdGVyX3Jl
+c2lzdGFuY2UAc2V0X3dhdGVyX3Jlc2lzdGFuY2UAc2V0X3dhdGVycmVzaXN0YW5jZQBkZWZhdWx0
+SW5zdGFuY2UAZ2V0X3JlZmVyZW5jZQBzZXRfcmVmZXJlbmNlAGdldF9icmFuZF9hZ2UAc2V0X2Jy
+YW5kX2FnZQBzZXRfYnJhbmRhZ2UASURpc3Bvc2FibGUAUnVudGltZVR5cGVIYW5kbGUAR2V0VHlw
+ZUZyb21IYW5kbGUARmlsZQBnZXRfbmFtZQBzZXRfbmFtZQBNaWNyb3NvZnQuU3FsU2VydmVyLkR0
+cy5QaXBlbGluZQBUeXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVyZQBB
+cHBsaWNhdGlvblNldHRpbmdzQmFzZQBEaXNwb3NlAEVkaXRvckJyb3dzYWJsZVN0YXRlAENvbXBp
+bGVyR2VuZXJhdGVkQXR0cmlidXRlAERlYnVnZ2VyTm9uVXNlckNvZGVBdHRyaWJ1dGUARGVidWdn
+YWJsZUF0dHJpYnV0ZQBFZGl0b3JCcm93c2FibGVBdHRyaWJ1dGUAQXNzZW1ibHlUaXRsZUF0dHJp
+YnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBUYXJnZXRGcmFtZXdvcmtBdHRyaWJ1dGUA
+QXNzZW1ibHlDb25maWd1cmF0aW9uQXR0cmlidXRlAEFzc2VtYmx5RGVzY3JpcHRpb25BdHRyaWJ1
+dGUAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RBdHRyaWJ1
+dGUAQXNzZW1ibHlDb3B5cmlnaHRBdHRyaWJ1dGUAU1NJU1NjcmlwdENvbXBvbmVudEVudHJ5UG9p
+bnRBdHRyaWJ1dGUAQXNzZW1ibHlDb21wYW55QXR0cmlidXRlAFJ1bnRpbWVDb21wYXRpYmlsaXR5
+QXR0cmlidXRlAFByZUV4ZWN1dGUAUG9zdEV4ZWN1dGUAdmFsdWUAZ2V0X3Bvd2VyX3Jlc2VydmUA
+c2V0X3Bvd2VyX3Jlc2VydmUAc2V0X3Bvd2VycmVzZXJ2ZQBEZXNlcmlhbGl6ZQB3YXRjaGluZwBT
+eXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAHNldF9NYXhKc29uTGVuZ3RoAGdldF9kaWFsAHNldF9k
+aWFsAGdldF9jYXNlX21hdGVyaWFsAHNldF9jYXNlX21hdGVyaWFsAHNldF9jYXNlbWF0ZXJpYWwA
+RGVjaW1hbABTeXN0ZW0uQ29tcG9uZW50TW9kZWwAZ2V0X2JyYW5kX3ByZXN0aWdlX2xldmVsAHNl
+dF9icmFuZF9wcmVzdGlnZV9sZXZlbABzZXRfYnJhbmRwcmVzdGlnZWxldmVsAHNldF9wcm9kdWN0
+cHJpY2VkZXRhaWwAU0NfYjM5YWQ3NGRiZDU5NDc2N2ExMmIxODNkYjIwZWYwMWEuZGxsAHNldF9j
+YXNlZGlhbWV0ZXJudW1lcmljX0lzTnVsbABzZXRfcHJpY2VjYXRlZ29yeWltcHJvdmVkX0lzTnVs
+bABzZXRfd2F0ZXJyZXNpc3RhbmNlc3RhbmRhcmRpemVkX0lzTnVsbABzZXRfYnJhbmRfSXNOdWxs
+AHNldF93YXRlcnJlc2lzdGFuY2VfSXNOdWxsAHNldF9yZWZlcmVuY2VfSXNOdWxsAHNldF9icmFu
+ZGFnZV9Jc051bGwAc2V0X25hbWVfSXNOdWxsAHNldF9wb3dlcnJlc2VydmVfSXNOdWxsAHNldF9k
+aWFsX0lzTnVsbABzZXRfY2FzZW1hdGVyaWFsX0lzTnVsbABzZXRfYnJhbmRwcmVzdGlnZWxldmVs
+X0lzTnVsbABzZXRfcHJvZHVjdHByaWNlZGV0YWlsX0lzTnVsbABzZXRfY29sbGVjdGlvbl9Jc051
+bGwAc2V0X2JyYW5kZm91bmRlZHllYXJfSXNOdWxsAHNldF9nZW5kZXJfSXNOdWxsAHNldF9pc3By
+aWNlb3V0bGllcl9Jc051bGwAc2V0X2NvbGxlY3Rpb25wcmljZXRpZXJfSXNOdWxsAHNldF9icmFj
+ZWxldF9Jc051bGwAc2V0X21vdmVtZW50X0lzTnVsbABzZXRfcHJpY2VjYXRlZ29yeV9Jc051bGwA
+c2V0X3dhdGVycmVzaXN0YW5jZWNhdGVnb3J5X0lzTnVsbABzZXRfY2FzZXNpemVjYXRlZ29yeV9J
+c051bGwAc2V0X2Nhc2VtYXRlcmlhbGNhdGVnb3J5X0lzTnVsbABzZXRfYnJhbmRjb3VudHJ5X0lz
+TnVsbABzZXRfY29sbGVjdGlvbnBvcHVsYXJpdHlfSXNOdWxsAHNldF93YXJyZW50eV9Jc051bGwA
+U2V0TnVsbABzZXRfSXRlbQBTeXN0ZW0AcmVzb3VyY2VNYW4AU2NyaXB0TWFpbgBTeXN0ZW0uQ29u
+ZmlndXJhdGlvbgBTeXN0ZW0uR2xvYmFsaXphdGlvbgBTeXN0ZW0uV2ViLlNjcmlwdC5TZXJpYWxp
+emF0aW9uAFN5c3RlbS5SZWZsZWN0aW9uAGdldF9jb2xsZWN0aW9uAHNldF9jb2xsZWN0aW9uAElu
+dmFsaWRPcGVyYXRpb25FeGNlcHRpb24AQ3VsdHVyZUluZm8AT3V0cHV0TmFtZU1hcABPdXRwdXRN
+YXAAZ2V0X2JyYW5kX2ZvdW5kZWRfeWVhcgBzZXRfYnJhbmRfZm91bmRlZF95ZWFyAHNldF9icmFu
+ZGZvdW5kZWR5ZWFyAGdldF9nZW5kZXIAc2V0X2dlbmRlcgBPdXRwdXQwQnVmZmVyAFBpcGVsaW5l
+QnVmZmVyAFNjcmlwdEJ1ZmZlcgBnZXRfUmVzb3VyY2VNYW5hZ2VyAHNldF9pc3ByaWNlb3V0bGll
+cgBnZXRfY29sbGVjdGlvbl9wcmljZV90aWVyAHNldF9jb2xsZWN0aW9uX3ByaWNlX3RpZXIAc2V0
+X2NvbGxlY3Rpb25wcmljZXRpZXIAZ2V0X2lzX3ByaWNlX291dGxlcgBzZXRfaXNfcHJpY2Vfb3V0
+bGVyAEphdmFTY3JpcHRTZXJpYWxpemVyAEdldEVudW1lcmF0b3IALmN0b3IALmNjdG9yAE91dHB1
+dElEcwBTeXN0ZW0uRGlhZ25vc3RpY3MAU3lzdGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNlcwBT
+eXN0ZW0uUmVzb3VyY2VzAFNDX2IzOWFkNzRkYmQ1OTQ3NjdhMTJiMTgzZGIyMGVmMDFhLlByb3Bl
+cnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBTQ19iMzlhZDc0ZGJkNTk0
+NzY3YTEyYjE4M2RiMjBlZjAxYS5Qcm9wZXJ0aWVzAFZhcmlhYmxlcwBCdWZmZXJDb2x1bW5JbmRl
+eGVzAEdldENvbHVtbkluZGV4ZXMAU2V0dGluZ3MAU3lzdGVtLldlYi5FeHRlbnNpb25zAENvbm5l
+Y3Rpb25zAEJ1ZmZlcnMARmluaXNoT3V0cHV0cwBDcmVhdGVOZXdPdXRwdXRSb3dzAE9iamVjdABn
+ZXRfYnJhY2VsZXQAc2V0X2JyYWNlbGV0AFNldEVuZE9mUm93c2V0AGdldF9EZWZhdWx0AGdldF9t
+b3ZlbWVudABzZXRfbW92ZW1lbnQAVXNlckNvbXBvbmVudABQYXJlbnRDb21wb25lbnQAU2NyaXB0
+Q29tcG9uZW50AGdldF9DdXJyZW50AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuVHhTY3JpcHQATWljcm9z
+b2Z0LlNxbFNlcnZlci5QaXBlbGluZUhvc3QAUHJpbWVPdXRwdXQATW92ZU5leHQAUmVhZEFsbFRl
+eHQAQWRkUm93AGdldF9Bc3NlbWJseQBnZXRfcHJpY2VfY2F0ZWdvcnkAc2V0X3ByaWNlX2NhdGVn
+b3J5AGdldF93YXRlcl9yZXNpc3RhbmNlX2NhdGVnb3J5AHNldF93YXRlcl9yZXNpc3RhbmNlX2Nh
+dGVnb3J5AGdldF9jYXNlX3NpemVfY2F0ZWdvcnkAc2V0X2Nhc2Vfc2l6ZV9jYXRlZ29yeQBnZXRf
+Y2FzZV9tYXRlcmlhbF9jYXRlZ29yeQBzZXRfY2FzZV9tYXRlcmlhbF9jYXRlZ29yeQBzZXRfcHJp
+Y2VjYXRlZ29yeQBzZXRfd2F0ZXJyZXNpc3RhbmNlY2F0ZWdvcnkAc2V0X2Nhc2VzaXplY2F0ZWdv
+cnkAc2V0X2Nhc2VtYXRlcmlhbGNhdGVnb3J5AGdldF9icmFuZF9jb3VudHJ5AHNldF9icmFuZF9j
+b3VudHJ5AHNldF9icmFuZGNvdW50cnkAZ2V0X2NvbGxlY3Rpb25fcG9wdWxhcml0eQBzZXRfY29s
+bGVjdGlvbl9wb3B1bGFyaXR5AHNldF9jb2xsZWN0aW9ucG9wdWxhcml0eQBnZXRfd2FycmVudHkA
+c2V0X3dhcnJlbnR5AAAAAAB/QwA6AFwAVQBzAGUAcgBzAFwAawBpAG0AYgBlAHIAbAB5AC4AYwBo
+AGEAbgBcAGcAaQB0AFwAVwBhAHQAYwBoAGkAbgBnAFwAagBzAG8AbgB3AGEAdABjAGgAZQBzAF8A
+ZgBpAG4AYQBsAF8AZgBsAGEAdAAuAEoAUwBPAE4AAICbSQBzAE4AdQBsAGwAIABwAHIAbwBwAGUA
+cgB0AHkAIABjAGEAbgBuAG8AdAAgAGIAZQAgAHMAZQB0ACAAdABvACAARgBhAGwAcwBlAC4AIABB
+AHMAcwBpAGcAbgAgAGEAIAB2AGEAbAB1AGUAIAB0AG8AIAB0AGgAZQAgAGMAbwBsAHUAbQBuACAA
+aQBuAHMAdABlAGEAZAAuAAARTwB1AHQAcAB1AHQAIAAwAABxUwBDAF8AYgAzADkAYQBkADcANABk
+AGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAzAGQAYgAyADAAZQBmADAAMQBhAC4AUAByAG8A
+cABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAAAAEvjzjd7L9ZLjggrPFqyfgsABCAB
+AQgDIAABBSABARERBCABAQ4FIAEBEWULBwMOFRE9ARIkEiQEAAEODgYwAQEeAA4ICgEVEjkBEiQG
+FRI5ARIkCCAAFRE9ARMABhURPQESJAQgABMAAyAAAgkgAwESRR0IEkkFIAIBCBwDBwEIBgACCBJJ
+DgUgAR0ICAgAARKAhRGAiQUgABKAjQcgAgEOEoCNCLd6XFYZNOCJCImEXc2AgMyRCDG/OFatNk41
+AwYSFAMGEhgDBhIMAwYSUQMGEl0DBhJhAwYSIAIGDgMGEU0EIAEBAgUgAQERTQsgBAEIHQgdEkUS
+SQUgAQESUQQAABJdBAAAEmEFAAEBEmEEAAASIAMAAAEDIAAOBCAAEU0DKAAOAygAAgQoABFNBAgA
+El0ECAASYQQIABIgCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQgBAAIA
+AAAAACgBACNTQ19iMzlhZDc0ZGJkNTk0NzY3YTEyYjE4M2RiMjBlZjAxYQAABQEAAAAADgEACUZE
+TSBHcm91cAAAHwEAGkNvcHlyaWdodCBAIEZETSBHcm91cCAyMDI1AABJAQAaLk5FVEZyYW1ld29y
+ayxWZXJzaW9uPXY0LjcBAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQu
+NwQBAAAAALQAAADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwg
+bXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+bj1iNzdhNWM1NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAA
+AAAAAAAAAAAAUEFEUEFEULQAAAB0VQAAAAAAAAAAAACOVQAAACAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgFUAAAAAAAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAABgAAIAAAAAA
+AAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABYYAAAEAQAAAAAAAAA
+AAAAEAQ0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E7/4AAAEAAAABAAAA
+AAAAAAEAAAAAAD8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBWAGEAcgBGAGkAbABl
+AEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAAAACwBHADAAABAFMA
+dAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAAEwDAAABADAAMAAwADAAMAA0AGIAMAAAABoAAQAB
+AEMAbwBtAG0AZQBuAHQAcwAAAAAAAAA0AAoAAQBDAG8AbQBwAGEAbgB5AE4AYQBtAGUAAAAAAEYA
+RABNACAARwByAG8AdQBwAAAAcAAkAAEARgBpAGwAZQBEAGUAcwBjAHIAaQBwAHQAaQBvAG4AAAAA
+AFMAQwBfAGIAMwA5AGEAZAA3ADQAZABiAGQANQA5ADQANwA2ADcAYQAxADIAYgAxADgAMwBkAGIA
+MgAwAGUAZgAwADEAYQAAADAACAABAEYAaQBsAGUAVgBlAHIAcwBpAG8AbgAAAAAAMQAuADAALgAw
+AC4AMAAAAHAAKAABAEkAbgB0AGUAcgBuAGEAbABOAGEAbQBlAAAAUwBDAF8AYgAzADkAYQBkADcA
+NABkAGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAzAGQAYgAyADAAZQBmADAAMQBhAC4AZABs
+AGwAAABaABsAAQBMAGUAZwBhAGwAQwBvAHAAeQByAGkAZwBoAHQAAABDAG8AcAB5AHIAaQBnAGgA
+dAAgAEAAIABGAEQATQAgAEcAcgBvAHUAcAAgADIAMAAyADUAAAAAACoAAQABAEwAZQBnAGEAbABU
+AHIAYQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUA
+bgBhAG0AZQAAAFMAQwBfAGIAMwA5AGEAZAA3ADQAZABiAGQANQA5ADQANwA2ADcAYQAxADIAYgAx
+ADgAMwBkAGIAMgAwAGUAZgAwADEAYQAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEA
+bQBlAAAAAABTAEMAXwBiADMAOQBhAGQANwA0AGQAYgBkADUAOQA0ADcANgA3AGEAMQAyAGIAMQA4
+ADMAZABiADIAMABlAGYAMAAxAGEAAAA0AAgAAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4A
+AAAxAC4AMAAuADAALgAwAAAAOAAIAAEAQQBzAHMAZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAA
+ADEALgAwAC4AMAAuADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAAGAAAgAAAAAAA
-AAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhgAAAQBAAAAAAAAAAA
-AAAQBDQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAAAQAAAAEAAAAA
-AAAAAQAAAAAAPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQByAEYAaQBsAGUA
-SQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAEcAMAAAEAUwB0
-AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAATAMAAAEAMAAwADAAMAAwADQAYgAwAAAAGgABAAEA
-QwBvAG0AbQBlAG4AdABzAAAAAAAAADQACgABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAAAAAARgBE
-AE0AIABHAHIAbwB1AHAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAA
-UwBDAF8AYgAzADkAYQBkADcANABkAGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAzAGQAYgAy
-ADAAZQBmADAAMQBhAAAAMAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADAA
-LgAwAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwBiADMAOQBhAGQANwA0
-AGQAYgBkADUAOQA0ADcANgA3AGEAMQAyAGIAMQA4ADMAZABiADIAMABlAGYAMAAxAGEALgBkAGwA
-bAAAAFoAGwABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0
-ACAAQAAgAEYARABNACAARwByAG8AdQBwACAAMgAwADIANQAAAAAAKgABAAEATABlAGcAYQBsAFQA
-cgBhAGQAZQBtAGEAcgBrAHMAAAAAAAAAAAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBu
-AGEAbQBlAAAAUwBDAF8AYgAzADkAYQBkADcANABkAGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEA
-OAAzAGQAYgAyADAAZQBmADAAMQBhAC4AZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBt
-AGUAAAAAAFMAQwBfAGIAMwA5AGEAZAA3ADQAZABiAGQANQA5ADQANwA2ADcAYQAxADIAYgAxADgA
-MwBkAGIAMgAwAGUAZgAwADEAYQAAADQACAABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAA
-ADEALgAwAC4AMAAuADAAAAA4AAgAAQBBAHMAcwBlAG0AYgBsAHkAIABWAGUAcgBzAGkAbwBuAAAA
-MQAuADAALgAwAC4AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAMAAAAbDYAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAADAAAAKA1AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1712,7 +1959,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
                   </arrayElements>
                 </property>
                 <property
@@ -1755,191 +2002,197 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               </properties>
               <outputs>
                 <output
-                  refId="Package\Data Flow Task\Script Component.Outputs[Output 0]"
+                  refId="Package\Read JSON\Script Component.Outputs[Output 0]"
                   hasSideEffects="true"
                   name="Output 0">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[name]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[name]"
                       codePage="1252"
                       dataType="str"
-                      length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[name]"
+                      length="500"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[name]"
                       name="name" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand]"
                       codePage="1252"
                       dataType="str"
-                      length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand]"
+                      length="500"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand]"
                       name="brand" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection]"
                       codePage="1252"
                       dataType="str"
-                      length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection]"
+                      length="500"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection]"
                       name="collection" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[price_category]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[price_category]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category]"
                       name="price_category" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[gender]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[gender]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[gender]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[gender]"
                       name="gender" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[movement]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[movement]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[movement]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[movement]"
                       name="movement" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_material]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_material]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material]"
                       name="case_material" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material_category]"
+                      name="case_material_category" />
+                    <outputColumn
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance]"
                       name="water_resistance" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
                       name="water_resistance_category" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_country]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_country]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_country]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_country]"
                       name="brand_country" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_age]"
-                      dataType="i4"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_age]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]"
                       name="brand_age" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
                       name="collection_price_tier" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[warrenty]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[warrenty]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[warrenty]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[warrenty]"
                       name="warrenty" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[power_reserve]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[power_reserve]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[power_reserve]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[power_reserve]"
                       name="power_reserve" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[dial]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[dial]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[dial]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[dial]"
                       name="dial" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[bracelet]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[bracelet]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[bracelet]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[bracelet]"
                       name="bracelet" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[product_price_detail]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[product_price_detail]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[product_price_detail]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[product_price_detail]"
                       name="product_price_detail" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[reference]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[reference]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[reference]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[reference]"
                       name="reference" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
-                      dataType="i4"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
                       name="brand_founded_year" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
                       name="is_price_outlier" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection_popularity]"
-                      dataType="i4"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[collection_popularity]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_popularity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_popularity]"
                       name="collection_popularity" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
                       name="water_resistance_standardized" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[price_category_improved]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category_improved]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[price_category_improved]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category_improved]"
                       name="price_category_improved" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
                       dataType="decimal"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
                       name="case_diameter_numeric" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_size_category]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_size_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_size_category]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_size_category]"
                       name="case_size_category" />
                     <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
+                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
                       name="brand_prestige_level" />
-                    <outputColumn
-                      refId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_material_category]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      lineageId="Package\Data Flow Task\Script Component.Outputs[Output 0].Columns[case_material_category]"
-                      name="case_material_category" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -1948,10 +2201,20 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
           </components>
           <paths>
             <path
-              refId="Package\Data Flow Task.Paths[Output 0]"
-              endId="Package\Data Flow Task\Multicast 1.Inputs[Multicast Input 1]"
+              refId="Package\Read JSON.Paths[Data Conversion Output]"
+              endId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]"
+              name="Data Conversion Output"
+              startId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Read JSON.Paths[Multicast Output 2]"
+              endId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 2"
+              startId="Package\Read JSON\Multicast.Outputs[Multicast Output 2]" />
+            <path
+              refId="Package\Read JSON.Paths[Output 0]"
+              endId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]"
               name="Output 0"
-              startId="Package\Data Flow Task\Script Component.Outputs[Output 0]" />
+              startId="Package\Read JSON\Script Component.Outputs[Output 0]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -1970,59 +2233,133 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="155,42"
-          Id="Package\Data Flow Task"
-          TopLeft="5.5,5.5" />
+          Size="136,42.6666666666667"
+          Id="Package\Read JSON"
+          TopLeft="83.6249965075404,249.763155212776" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Data Flow Task">
+    design-time-name="Package\Read JSON">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="167,42"
-          Id="Package\Data Flow Task\Script Component"
-          TopLeft="5.5,5.5" />
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Read JSON\OLE DB Destination"
+          TopLeft="139.374993769452,427.631574252058" />
         <NodeLayout
-          Size="131,43"
-          Id="Package\Data Flow Task\Multicast 1"
-          TopLeft="236.874989410863,185.421050595692" />
+          Size="121.333333333334,42.6666666666667"
+          Id="Package\Read JSON\Multicast"
+          TopLeft="217.37499052845,249.991225576026" />
+        <NodeLayout
+          Size="166.666666666667,42"
+          Id="Package\Read JSON\Script Component"
+          TopLeft="59.8749975692482,5.5" />
+        <NodeLayout
+          Size="158.666666666667,42.6666666666667"
+          Id="Package\Read JSON\Data Conversion"
+          TopLeft="168.124992484227,127.263156497413" />
         <EdgeLayout
-          Id="Package\Data Flow Task.Paths[Output 0]"
-          TopLeft="88.8333333333333,47.5">
+          Id="Package\Read JSON.Paths[Multicast Output 2]"
+          TopLeft="278.041657195116,292.657892242693">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="213.374989410863,137.921050595692"
+              EndConnector="-51.3333300923308,134.973682009365"
               Start="0,0"
-              End="213.374989410863,130.421050595692">
+              End="-51.3333300923308,127.473682009365">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,64.9605252978462" />
+                    End="0,63.4868410046825" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,64.9605252978462"
-                    Point2="0,68.9605252978462"
-                    Point3="4,68.9605252978462" />
+                    Point1="0,63.4868410046825"
+                    Point2="0,67.4868410046825"
+                    Point3="-4,67.4868410046825" />
                   <mssgle:LineSegment
-                    End="209.374989410863,68.9605252978462" />
+                    End="-47.3333300923308,67.4868410046825" />
                   <mssgle:CubicBezierSegment
-                    Point1="209.374989410863,68.9605252978462"
-                    Point2="213.374989410863,68.9605252978462"
-                    Point3="213.374989410863,72.9605252978462" />
+                    Point1="-47.3333300923308,67.4868410046825"
+                    Point2="-51.3333300923308,67.4868410046825"
+                    Point3="-51.3333300923308,71.4868410046825" />
                   <mssgle:LineSegment
-                    End="213.374989410863,130.421050595692" />
+                    End="-51.3333300923308,127.473682009365" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="98.6874947054314,73.9605252978462,16,16"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Read JSON.Paths[Data Conversion Output]"
+          TopLeft="247.45832581756,169.929823164079">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="30.583331377556,80.0614024119473"
+              Start="0,0"
+              End="30.583331377556,72.5614024119473">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.0307012059736" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.0307012059736"
+                    Point2="0,40.0307012059736"
+                    Point3="4,40.0307012059736" />
+                  <mssgle:LineSegment
+                    End="26.583331377556,40.0307012059736" />
+                  <mssgle:CubicBezierSegment
+                    Point1="26.583331377556,40.0307012059736"
+                    Point2="30.583331377556,40.0307012059736"
+                    Point3="30.583331377556,44.0307012059736" />
+                  <mssgle:LineSegment
+                    End="30.583331377556,72.5614024119473" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Read JSON.Paths[Output 0]"
+          TopLeft="143.208330902582,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="104.249994914979,79.7631564974125"
+              Start="0,0"
+              End="104.249994914979,72.2631564974125">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.8815782487063" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.8815782487063"
+                    Point2="0,39.8815782487063"
+                    Point3="4,39.8815782487063" />
+                  <mssgle:LineSegment
+                    End="100.249994914979,39.8815782487063" />
+                  <mssgle:CubicBezierSegment
+                    Point1="100.249994914979,39.8815782487063"
+                    Point2="104.249994914979,39.8815782487063"
+                    Point3="104.249994914979,43.8815782487063" />
+                  <mssgle:LineSegment
+                    End="104.249994914979,72.2631564974125" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

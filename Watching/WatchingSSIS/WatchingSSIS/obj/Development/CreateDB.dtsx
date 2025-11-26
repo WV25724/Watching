@@ -7,15 +7,27 @@
   DTS:CreatorName="FDMGROUP\Kimberly.Chan"
   DTS:DTSID="{AC78152A-A198-4BD2-B37E-4B36D9053E0A}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5685.2"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
   DTS:LocaleID="3081"
   DTS:ObjectName="CreateDB"
   DTS:PackageType="5"
-  DTS:VersionBuild="3"
-  DTS:VersionGUID="{0A3CF626-95E5-4984-9EBC-F567648685B9}">
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{88ABE703-560A-4C58-BB7D-269C6282B5DA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[KIMMY\SQLEXPRESS.watching]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{60D3C21D-1253-42B1-9738-2EF0D402CFDD}"
+      DTS:ObjectName="KIMMY\SQLEXPRESS.watching">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=KIMMY\SQLEXPRESS;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-CreateDB-{60D3C21D-1253-42B1-9738-2EF0D402CFDD}KIMMY\SQLEXPRESS.watching;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[LAPSYD70278.watching]"
       DTS:CreationName="OLEDB"
@@ -38,6 +50,16 @@
           DTS:ConnectionString="C:\Users\kimberly.chan\git\Watching\watching_DDL.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[watching_DDL.sql 1]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{2834B102-6CCC-4CA2-8B5F-D75B1095D38B}"
+      DTS:ObjectName="watching_DDL.sql 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Watching\Watching\watching_DDL.sql" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables />
   <DTS:Executables>
@@ -54,9 +76,9 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{5654E3E0-64E7-4840-958A-81513B9EB865}"
+          SQLTask:Connection="{60D3C21D-1253-42B1-9738-2EF0D402CFDD}"
           SQLTask:SqlStmtSourceType="FileConnection"
-          SQLTask:SqlStatementSource="watching_DDL.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="watching_DDL.sql 1" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -73,7 +95,7 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="146.666666666667,42.6666666666667"
+          Size="147,43"
           Id="Package\watching DDL"
           TopLeft="69.4999979883433,161.342103760659" />
       </GraphLayout>

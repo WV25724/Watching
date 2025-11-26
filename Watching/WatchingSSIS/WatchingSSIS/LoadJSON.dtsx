@@ -11,8 +11,8 @@
   DTS:LocaleID="3081"
   DTS:ObjectName="LoadJSON"
   DTS:PackageType="5"
-  DTS:VersionBuild="43"
-  DTS:VersionGUID="{D56284E8-BF51-41F4-8DBE-032E3C433622}">
+  DTS:VersionBuild="45"
+  DTS:VersionGUID="{CB80A741-CD78-4EE6-963F-74249CC397DB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -196,6 +196,13 @@
               </inputs>
               <outputs>
                 <output
+                  refId="Package\Read JSON\Multicast.Outputs[Multicast Output 1]"
+                  deleteOutputOnPathDetached="true"
+                  name="Multicast Output 1"
+                  synchronousInputId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]">
+                  <externalMetadataColumns />
+                </output>
+                <output
                   refId="Package\Read JSON\Multicast.Outputs[Multicast Output 2]"
                   deleteOutputOnPathDetached="true"
                   name="Multicast Output 2"
@@ -203,10 +210,10 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Read JSON\Multicast.Outputs[Multicast Output 1]"
+                  refId="Package\Read JSON\Multicast.Outputs[Multicast Output 3]"
                   dangling="true"
                   deleteOutputOnPathDetached="true"
-                  name="Multicast Output 1"
+                  name="Multicast Output 3"
                   synchronousInputId="Package\Read JSON\Multicast.Inputs[Multicast Input 1]">
                   <externalMetadataColumns />
                 </output>
@@ -218,6 +225,175 @@
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
               name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[dim_brand]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">true</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Read JSON\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[LAPSYD70278.watching]"
+                  connectionManagerRefId="Package.ConnectionManagers[LAPSYD70278.watching]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="name"
+                      externalMetadataColumnId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[name]" />
+                    <inputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[brand_country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_country"
+                      externalMetadataColumnId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_country]" />
+                    <inputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of brand_age]"
+                      cachedDataType="i4"
+                      cachedName="Copy of brand_age"
+                      externalMetadataColumnId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age]"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]" />
+                    <inputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of brand_founded_year]"
+                      cachedDataType="i4"
+                      cachedName="Copy of brand_founded_year"
+                      externalMetadataColumnId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[founded]"
+                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]" />
+                    <inputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[brand_prestige_level]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_prestige_level"
+                      externalMetadataColumnId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[prestige]"
+                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_prestige_level]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[brand_id]"
+                      dataType="i4"
+                      name="brand_id" />
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="150"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="country" />
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[age]"
+                      dataType="i4"
+                      name="age" />
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[founded]"
+                      dataType="i4"
+                      name="founded" />
+                    <externalMetadataColumn
+                      refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[prestige]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="prestige" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Read JSON\OLE DB Destination 1"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination 1"
               usesDispositions="true"
               version="4">
               <properties>
@@ -270,13 +446,13 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Read JSON\OLE DB Destination.Connections[OleDbConnection]"
+                  refId="Package\Read JSON\OLE DB Destination 1.Connections[OleDbConnection]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
               <inputs>
                 <input
-                  refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Read JSON\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
@@ -287,22 +463,22 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Read JSON\OLE DB Destination 1.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Read JSON\OLE DB Destination 1.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Read JSON\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Read JSON\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Read JSON\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Read JSON\OLE DB Destination 1.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1526,7 +1702,7 @@ namespace watchingNamespace
     <msb:CodeName>SC_b39ad74dbd594767a12b183db20ef01a</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>SC_b39ad74dbd594767a12b183db20ef01a</msb:DisplayName>
-    <msb:ProjectId>{A0532585-9C27-4F8F-BC20-5653053BD8D9}</msb:ProjectId>
+    <msb:ProjectId>{E4D36EE1-10DB-44EA-9CA2-F650AF75A0D9}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="SC_b39ad74dbd594767a12b183db20ef01a.csproj" />
@@ -1674,7 +1850,7 @@ namespace SC_b39ad74dbd594767a12b183db20ef01a.Properties {
                     <arrayElement
                       dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAF5qJmkAAAAAAAAAAOAAIiALATAAADYAAAAIAAAAAAAAnlUA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAJZrJmkAAAAAAAAAAOAAIiALATAAADYAAAAIAAAAAAAAnlUA
 AAAgAAAAYAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACgAAAAAgAAAAAAAAMAYIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAExVAABPAAAAAGAAAGwEAAAAAAAAAAAAAAAAAAAA
 AAAAAIAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1907,7 +2083,7 @@ cgB0AHkAIABjAGEAbgBuAG8AdAAgAGIAZQAgAHMAZQB0ACAAdABvACAARgBhAGwAcwBlAC4AIABB
 AHMAcwBpAGcAbgAgAGEAIAB2AGEAbAB1AGUAIAB0AG8AIAB0AGgAZQAgAGMAbwBsAHUAbQBuACAA
 aQBuAHMAdABlAGEAZAAuAAARTwB1AHQAcAB1AHQAIAAwAABxUwBDAF8AYgAzADkAYQBkADcANABk
 AGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAzAGQAYgAyADAAZQBmADAAMQBhAC4AUAByAG8A
-cABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAAAAEvjzjd7L9ZLjggrPFqyfgsABCAB
+cABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAAAAAs/HUbRcgVAozJn4s7uXoEABCAB
 AQgDIAABBSABARERBCABAQ4FIAEBEWULBwMOFRE9ARIkEiQEAAEODgYwAQEeAA4ICgEVEjkBEiQG
 FRI5ARIkCCAAFRE9ARMABhURPQESJAQgABMAAyAAAgkgAwESRR0IEkkFIAIBCBwDBwEIBgACCBJJ
 DgUgAR0ICAgAARKAhRGAiQUgABKAjQcgAgEOEoCNCLd6XFYZNOCJCImEXc2AgMyRCDG/OFatNk41
@@ -2206,8 +2382,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
               name="Data Conversion Output"
               startId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output]" />
             <path
-              refId="Package\Read JSON.Paths[Multicast Output 2]"
+              refId="Package\Read JSON.Paths[Multicast Output 1]"
               endId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Multicast Output 1"
+              startId="Package\Read JSON\Multicast.Outputs[Multicast Output 1]" />
+            <path
+              refId="Package\Read JSON.Paths[Multicast Output 2]"
+              endId="Package\Read JSON\OLE DB Destination 1.Inputs[OLE DB Destination Input]"
               name="Multicast Output 2"
               startId="Package\Read JSON\Multicast.Outputs[Multicast Output 2]" />
             <path
@@ -2243,11 +2424,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
     design-time-name="Package\Read JSON">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Read JSON\OLE DB Destination"
-          TopLeft="139.374993769452,427.631574252058" />
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="121.333333333334,42.6666666666667"
           Id="Package\Read JSON\Multicast"
@@ -2260,40 +2437,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
           Size="158.666666666667,42.6666666666667"
           Id="Package\Read JSON\Data Conversion"
           TopLeft="168.124992484227,127.263156497413" />
-        <EdgeLayout
-          Id="Package\Read JSON.Paths[Multicast Output 2]"
-          TopLeft="278.041657195116,292.657892242693">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-51.3333300923308,134.973682009365"
-              Start="0,0"
-              End="-51.3333300923308,127.473682009365">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,63.4868410046825" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,63.4868410046825"
-                    Point2="0,67.4868410046825"
-                    Point3="-4,67.4868410046825" />
-                  <mssgle:LineSegment
-                    End="-47.3333300923308,67.4868410046825" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-47.3333300923308,67.4868410046825"
-                    Point2="-51.3333300923308,67.4868410046825"
-                    Point3="-51.3333300923308,71.4868410046825" />
-                  <mssgle:LineSegment
-                    End="-51.3333300923308,127.473682009365" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\Read JSON.Paths[Data Conversion Output]"
           TopLeft="247.45832581756,169.929823164079">
@@ -2362,8 +2505,97 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="174.666666666667,42.6666666666667"
+          Id="Package\Read JSON\OLE DB Destination"
+          TopLeft="120.624994607642,479.631573681108" />
+        <EdgeLayout
+          Id="Package\Read JSON.Paths[Multicast Output 1]"
+          TopLeft="278.041657195117,292.657892242693">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-70.0833292541409,186.973681438416"
+              Start="0,0"
+              End="-70.0833292541409,179.473681438416">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,89.4868407192079" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,89.4868407192079"
+                    Point2="0,93.4868407192079"
+                    Point3="-4,93.4868407192079" />
+                  <mssgle:LineSegment
+                    End="-66.0833292541409,93.4868407192079" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-66.0833292541409,93.4868407192079"
+                    Point2="-70.0833292541409,93.4868407192079"
+                    Point3="-70.0833292541409,97.4868407192079" />
+                  <mssgle:LineSegment
+                    End="-70.0833292541409,179.473681438416" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="184,42.6666666666667"
+          Id="Package\Read JSON\OLE DB Destination 1"
+          TopLeft="414.999981448055,472.087717547834" />
+        <EdgeLayout
+          Id="Package\Read JSON.Paths[Multicast Output 2]"
+          TopLeft="296.930546084006,292.657892242693">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="210.069435364049,179.429825305141"
+              Start="0,0"
+              End="210.069435364049,171.929825305141">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,69.1731174780186" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,69.1731174780186"
+                    Point2="0,73.1731174780186"
+                    Point3="4,73.1731174780186" />
+                  <mssgle:LineSegment
+                    End="206.069435364049,73.1731174780186" />
+                  <mssgle:CubicBezierSegment
+                    Point1="206.069435364049,73.1731174780186"
+                    Point2="210.069435364049,73.1731174780186"
+                    Point3="210.069435364049,77.1731174780186" />
+                  <mssgle:LineSegment
+                    End="210.069435364049,171.929825305141" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Read JSON\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

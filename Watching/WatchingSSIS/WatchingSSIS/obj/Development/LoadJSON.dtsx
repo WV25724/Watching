@@ -7,15 +7,39 @@
   DTS:CreatorName="Kimmy\Kimmy"
   DTS:DTSID="{5300AF70-39AC-40AF-A5D2-9B23739DBDA5}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="16.0.5685.2"
+  DTS:LastModifiedProductVersion="16.0.5397.1"
   DTS:LocaleID="3081"
   DTS:ObjectName="LoadJSON"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{CC65F926-F526-4956-B6CB-D6362F80EFD0}">
+  DTS:VersionBuild="56"
+  DTS:VersionGUID="{C7C17B74-69E8-45E2-BF17-D9B3DEA5A06E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[KIMMY\SQLEXPRESS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{AE64783E-E98D-4F93-8A02-00CEFA2A6524}"
+      DTS:ObjectName="KIMMY\SQLEXPRESS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=KIMMY\SQLEXPRESS;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-LoadJSON-{AE64783E-E98D-4F93-8A02-00CEFA2A6524}KIMMY\SQLEXPRESS;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[KIMMY\SQLEXPRESS.watching]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{7D87A261-66BA-466B-B1ED-C172CBD55D4C}"
+      DTS:ObjectName="KIMMY\SQLEXPRESS.watching">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=KIMMY\SQLEXPRESS;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-LoadJSON-{7D87A261-66BA-466B-B1ED-C172CBD55D4C}KIMMY\SQLEXPRESS.watching;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[LAPSYD70278.master]"
       DTS:CreationName="OLEDB"
@@ -25,7 +49,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=master;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-LoadJSON-{75E627E7-2A79-4C0D-9229-8FF4BA05DAF7}LAPSYD70278.master;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-LoadJSON-{75E627E7-2A79-4C0D-9229-8FF4BA05DAF7}LAPSYD70278.master;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -37,7 +61,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="1"
           DTS:ConnectRetryInterval="5"
-          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-LoadJSON-{D79963EF-7D9C-49E8-8463-0A8084730BDA}LAPSYD70278.watching;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=LAPSYD70278;Initial Catalog=watching;Provider=SQLOLEDB.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-LoadJSON-{D79963EF-7D9C-49E8-8463-0A8084730BDA}LAPSYD70278.watching;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -64,13 +88,13 @@
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\Read JSON"
+      DTS:refId="Package\Load DIM tables"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{194C3577-7FB7-4CB1-ACFC-7E22349D21DA}"
       DTS:ExecutableType="Microsoft.Pipeline"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Read JSON"
+      DTS:ObjectName="Load DIM tables"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:ObjectData>
@@ -78,7 +102,7 @@
           version="1">
           <components>
             <component
-              refId="Package\Read JSON\Data Conversion"
+              refId="Package\Load DIM tables\Data Conversion"
               componentClassID="Microsoft.DataConvert"
               contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
               description="Data Conversion"
@@ -86,40 +110,40 @@
               usesDispositions="true">
               <inputs>
                 <input
-                  refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]"
+                  refId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input]"
                   name="Data Conversion Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input].Columns[brand_age]"
+                      refId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input].Columns[brand_age]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="brand_age"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]" />
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_age]" />
                     <inputColumn
-                      refId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input].Columns[brand_founded_year]"
+                      refId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input].Columns[brand_founded_year]"
                       cachedCodepage="1252"
                       cachedDataType="str"
                       cachedLength="50"
                       cachedName="brand_founded_year"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]" />
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_founded_year]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output]"
+                  refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output]"
                   exclusionGroup="1"
                   name="Data Conversion Output"
-                  synchronousInputId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]">
+                  synchronousInputId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
+                      refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]"
                       name="Copy of brand_age"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -127,7 +151,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_age]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indicates whether the column uses the faster, locale-neutral parsing routines."
@@ -135,11 +159,11 @@
                       </properties>
                     </outputColumn>
                     <outputColumn
-                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
+                      refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]"
                       name="Copy of brand_founded_year"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -147,7 +171,7 @@
                           containsID="true"
                           dataType="System.Int32"
                           description="Specifies the input column used as the source of data for the conversion."
-                          name="SourceInputColumnLineageID">#{Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]}</property>
+                          name="SourceInputColumnLineageID">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_founded_year]}</property>
                         <property
                           dataType="System.Boolean"
                           description="Indicates whether the column uses the faster, locale-neutral parsing routines."
@@ -158,22 +182,22 @@
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output]"
+                  refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Data Conversion Error Output"
-                  synchronousInputId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]">
+                  synchronousInputId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -182,11 +206,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\Read JSON\OLE DB Destination"
+              refId="Package\Load DIM tables\Load raw_data"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="OLE DB Destination"
+              name="Load raw_data"
               usesDispositions="true"
               version="4">
               <properties>
@@ -197,7 +221,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset"></property>
+                  name="OpenRowset">[raw_data]</property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -219,7 +243,7 @@
                   dataType="System.Int32"
                   description="Specifies the mode used to access the database."
                   name="AccessMode"
-                  typeConverter="AccessMode">0</property>
+                  typeConverter="AccessMode">3</property>
                 <property
                   dataType="System.Boolean"
                   description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
@@ -227,11 +251,11 @@
                 <property
                   dataType="System.Boolean"
                   description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
-                  name="FastLoadKeepNulls">false</property>
+                  name="FastLoadKeepNulls">true</property>
                 <property
                   dataType="System.String"
                   description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
-                  name="FastLoadOptions"></property>
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
@@ -239,39 +263,413 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Read JSON\OLE DB Destination.Connections[OleDbConnection]"
+                  refId="Package\Load DIM tables\Load raw_data.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[KIMMY\SQLEXPRESS.watching]"
+                  connectionManagerRefId="Package.ConnectionManagers[KIMMY\SQLEXPRESS.watching]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
               <inputs>
                 <input
-                  refId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="name"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[name]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[brand]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="brand"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[collection]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="collection"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[price_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="price_category"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[price_category]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[gender]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="gender"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[gender]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[gender]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[movement]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="movement"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[movement]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[movement]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[case_material]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_material"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_material]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[case_material_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_material_category"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_material_category]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material_category]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[water_resistance]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[water_resistance_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance_category"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance_category]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_category]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[brand_country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_country"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_country]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_country]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[brand_age1]"
+                      cachedDataType="i4"
+                      cachedName="brand_age1"
+                      cachedSortKeyPosition="1"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_age]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_age1]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[collection_price_tier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="collection_price_tier"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection_price_tier]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_price_tier]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[power_reserve]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="power_reserve"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[power_reserve]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[power_reserve]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[dial]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="dial"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[dial]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[dial]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[bracelet]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="bracelet"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[bracelet]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[bracelet]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[product_price_detail]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="product_price_detail"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[product_price_detail]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[product_price_detail]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[reference]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="reference"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[reference]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[reference]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[brand_founded_year1]"
+                      cachedDataType="i4"
+                      cachedName="brand_founded_year1"
+                      cachedSortKeyPosition="2"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_founded_year]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_founded_year1]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[is_price_outlier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="is_price_outlier"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[is_price_outlier]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[is_price_outlier]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[collection_popularity]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="collection_popularity"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection_popularity]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_popularity]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[water_resistance_standardized]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance_standardized"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance_standardized]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_standardized]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[case_diameter_numeric]"
+                      cachedDataType="decimal"
+                      cachedName="case_diameter_numeric"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_diameter_numeric]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_diameter_numeric]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[case_size_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_size_category"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_size_category]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_size_category]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[price_category_improved]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="price_category_improved"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[price_category_improved]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category_improved]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[brand_prestige_level]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_prestige_level"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_prestige_level]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_prestige_level]" />
+                    <inputColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].Columns[warrenty]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="warrenty"
+                      externalMetadataColumnId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[warranty]"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[warrenty]" />
+                  </inputColumns>
                   <externalMetadataColumns
-                    isUsed="True" />
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="brand" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      name="collection" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[price_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="price_category" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[gender]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="gender" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[movement]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="movement" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_material]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="case_material" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_material_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="case_material_category" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="water_resistance" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="water_resistance_category" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="brand_country" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_age]"
+                      dataType="i4"
+                      name="brand_age" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection_price_tier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="collection_price_tier" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[power_reserve]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="power_reserve" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[dial]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="dial" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[bracelet]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="bracelet" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[product_price_detail]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="product_price_detail" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[reference]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="reference" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_founded_year]"
+                      dataType="i4"
+                      name="brand_founded_year" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[is_price_outlier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="is_price_outlier" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[collection_popularity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="collection_popularity" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[water_resistance_standardized]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="water_resistance_standardized" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[price_category_improved]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="price_category_improved" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_diameter_numeric]"
+                      dataType="numeric"
+                      name="case_diameter_numeric"
+                      precision="28" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[case_size_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="case_size_category" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[brand_prestige_level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="brand_prestige_level" />
+                    <externalMetadataColumn
+                      refId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input].ExternalColumns[warranty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="warranty" />
+                  </externalMetadataColumns>
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Load DIM tables\Load raw_data.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Load DIM tables\Load raw_data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Load DIM tables\Load raw_data.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Load DIM tables\Load raw_data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Read JSON\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Load DIM tables\Load raw_data.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -280,7 +678,7 @@
               </outputs>
             </component>
             <component
-              refId="Package\Read JSON\Script Component"
+              refId="Package\Load DIM tables\Script Component"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;13"
               description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
@@ -627,7 +1025,7 @@ public class ScriptMain : UserComponent
         */
 
         /// MAKE SURE TO CHANGE FILE PATH
-        String jsonFileContent = File.ReadAllText(@"C:\Users\kimberly.chan\git\Watching\jsonwatches_final_flat.JSON");
+        String jsonFileContent = File.ReadAllText(@"C:\Watching\Watching\jsonwatches_final_flat.JSON");
 
         /* 
         JavaScriptSerializer js = new JavaScriptSerializer(); 
@@ -1495,7 +1893,7 @@ namespace watchingNamespace
     <msb:CodeName>SC_b39ad74dbd594767a12b183db20ef01a</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>SC_b39ad74dbd594767a12b183db20ef01a</msb:DisplayName>
-    <msb:ProjectId>{BAF0FE1C-F659-4E55-B4C1-DEC0A84446F0}</msb:ProjectId>
+    <msb:ProjectId>{17937617-715A-4E4B-9F06-35AFF1451E16}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="SC_b39ad74dbd594767a12b183db20ef01a.csproj" />
@@ -1643,14 +2041,14 @@ namespace SC_b39ad74dbd594767a12b183db20ef01a.Properties {
                     <arrayElement
                       dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAHdEJmkAAAAAAAAAAOAAIiALATAAADYAAAAIAAAAAAAAnlUA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAIyEJmkAAAAAAAAAAOAAIiALATAAADYAAAAIAAAAAAAAflUA
 AAAgAAAAYAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACgAAAAAgAAAAAAAAMAYIUAABAA
-ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAExVAABPAAAAAGAAAGwEAAAAAAAAAAAAAAAAAAAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAACxVAABPAAAAAGAAAGwEAAAAAAAAAAAAAAAAAAAA
 AAAAAIAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAApDUAAAAgAAAANgAAAAIA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAhDUAAAAgAAAANgAAAAIA
 AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAGwEAAAAYAAAAAYAAAA4AAAAAAAAAAAAAAAAAABAAABA
-LnJlbG9jAAAMAAAAAIAAAAACAAAAPgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAACA
-VQAAAAAAAEgAAAACAAUAXCkAADgrAAABAAAAAAAAAJRUAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+LnJlbG9jAAAMAAAAAIAAAAACAAAAPgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABg
+VQAAAAAAAEgAAAACAAUAXCkAABgrAAABAAAAAAAAAHRUAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKBAAAAoqHgIoEQAACiobMAMAJwIAAAEAABFyAQAAcCgS
 AAAKCnMTAAAKJSD///9/bxQAAAoGbwEAACtvFgAACgs43gEAABIBKBcAAAoMAnsDAAAEbzwAAAYC
 ewMAAAQIb00AAAZvBgAABgJ7AwAABAhvTwAABm8IAAAGAnsDAAAECG9RAAAGbwoAAAYCewMAAAQI
@@ -1662,27 +2060,27 @@ AAAGAnsDAAAECG9tAAAGbyYAAAYCewMAAAQIb28AAAZvKAAABgJ7AwAABAhvcQAABm8qAAAGAnsD
 AAAECG9zAAAGbywAAAYCewMAAAQIb3UAAAZvLgAABgJ7AwAABAhvdwAABm8wAAAGAnsDAAAECG95
 AAAGbzIAAAYCewMAAAQIb3sAAAZvNAAABgJ7AwAABAhvfQAABm82AAAGAnsDAAAECG+BAAAGbzoA
 AAYSASgYAAAKOhb+///eDhIB/hYCAAAbbxkAAArcKgBBHAAAAgAAACcAAADxAQAAGAIAAA4AAAAA
-AAAAHgIoPwAABioqAgMEBSgaAAAKKiYCFgMoGwAACipaAywIAhYoHAAACipygQAAcHMdAAAKeiYC
-FwMoGwAACipaAywIAhcoHAAACipygQAAcHMdAAAKeiYCGAMoGwAACipaAywIAhgoHAAACipygQAA
-cHMdAAAKeiYCGQMoGwAACipaAywIAhkoHAAACipygQAAcHMdAAAKeiYCGgMoGwAACipaAywIAhoo
-HAAACipygQAAcHMdAAAKeiYCGwMoGwAACipaAywIAhsoHAAACipygQAAcHMdAAAKeiYCHAMoGwAA
-CipaAywIAhwoHAAACipygQAAcHMdAAAKeiYCHQMoGwAACipaAywIAh0oHAAACipygQAAcHMdAAAK
-eiYCHgMoGwAACipaAywIAh4oHAAACipygQAAcHMdAAAKeioCHwkDKBsAAAoqXgMsCQIfCSgcAAAK
-KnKBAABwcx0AAAp6KgIfCgMoGwAACipeAywJAh8KKBwAAAoqcoEAAHBzHQAACnoqAh8LAygbAAAK
-Kl4DLAkCHwsoHAAACipygQAAcHMdAAAKeioCHwwDKBsAAAoqXgMsCQIfDCgcAAAKKnKBAABwcx0A
-AAp6KgIfDQMoGwAACipeAywJAh8NKBwAAAoqcoEAAHBzHQAACnoqAh8OAygbAAAKKl4DLAkCHw4o
-HAAACipygQAAcHMdAAAKeioCHw8DKBsAAAoqXgMsCQIfDygcAAAKKnKBAABwcx0AAAp6KgIfEAMo
-GwAACipeAywJAh8QKBwAAAoqcoEAAHBzHQAACnoqAh8RAygbAAAKKl4DLAkCHxEoHAAACipygQAA
-cHMdAAAKeioCHxIDKBsAAAoqXgMsCQIfEigcAAAKKnKBAABwcx0AAAp6KgIfEwMoGwAACipeAywJ
-Ah8TKBwAAAoqcoEAAHBzHQAACnoqAh8UAygbAAAKKl4DLAkCHxQoHAAACipygQAAcHMdAAAKeioC
-HxUDKBsAAAoqXgMsCQIfFSgcAAAKKnKBAABwcx0AAAp6KgIfFgMoGwAACipeAywJAh8WKBwAAAoq
-coEAAHBzHQAACnoqAh8XAygbAAAKKl4DLAkCHxcoHAAACipygQAAcHMdAAAKej4CHxgDjBMAAAEo
-GwAACipeAywJAh8YKBwAAAoqcoEAAHBzHQAACnoqAh8ZAygbAAAKKl4DLAkCHxkoHAAACipygQAA
-cHMdAAAKeioCHxoDKBsAAAoqXgMsCQIfGigcAAAKKnKBAABwcx0AAAp6HgIoHgAACioeAigfAAAK
+AAAAHgIoPwAABioqAgMEBSgaAAAKKiYCFgMoGwAACipaAywIAhYoHAAACipyYwAAcHMdAAAKeiYC
+FwMoGwAACipaAywIAhcoHAAACipyYwAAcHMdAAAKeiYCGAMoGwAACipaAywIAhgoHAAACipyYwAA
+cHMdAAAKeiYCGQMoGwAACipaAywIAhkoHAAACipyYwAAcHMdAAAKeiYCGgMoGwAACipaAywIAhoo
+HAAACipyYwAAcHMdAAAKeiYCGwMoGwAACipaAywIAhsoHAAACipyYwAAcHMdAAAKeiYCHAMoGwAA
+CipaAywIAhwoHAAACipyYwAAcHMdAAAKeiYCHQMoGwAACipaAywIAh0oHAAACipyYwAAcHMdAAAK
+eiYCHgMoGwAACipaAywIAh4oHAAACipyYwAAcHMdAAAKeioCHwkDKBsAAAoqXgMsCQIfCSgcAAAK
+KnJjAABwcx0AAAp6KgIfCgMoGwAACipeAywJAh8KKBwAAAoqcmMAAHBzHQAACnoqAh8LAygbAAAK
+Kl4DLAkCHwsoHAAACipyYwAAcHMdAAAKeioCHwwDKBsAAAoqXgMsCQIfDCgcAAAKKnJjAABwcx0A
+AAp6KgIfDQMoGwAACipeAywJAh8NKBwAAAoqcmMAAHBzHQAACnoqAh8OAygbAAAKKl4DLAkCHw4o
+HAAACipyYwAAcHMdAAAKeioCHw8DKBsAAAoqXgMsCQIfDygcAAAKKnJjAABwcx0AAAp6KgIfEAMo
+GwAACipeAywJAh8QKBwAAAoqcmMAAHBzHQAACnoqAh8RAygbAAAKKl4DLAkCHxEoHAAACipyYwAA
+cHMdAAAKeioCHxIDKBsAAAoqXgMsCQIfEigcAAAKKnJjAABwcx0AAAp6KgIfEwMoGwAACipeAywJ
+Ah8TKBwAAAoqcmMAAHBzHQAACnoqAh8UAygbAAAKKl4DLAkCHxQoHAAACipyYwAAcHMdAAAKeioC
+HxUDKBsAAAoqXgMsCQIfFSgcAAAKKnJjAABwcx0AAAp6KgIfFgMoGwAACipeAywJAh8WKBwAAAoq
+cmMAAHBzHQAACnoqAh8XAygbAAAKKl4DLAkCHxcoHAAACipyYwAAcHMdAAAKej4CHxgDjBMAAAEo
+GwAACipeAywJAh8YKBwAAAoqcmMAAHBzHQAACnoqAh8ZAygbAAAKKl4DLAkCHxkoHAAACipyYwAA
+cHMdAAAKeioCHxoDKBsAAAoqXgMsCQIfGigcAAAKKnJjAABwcx0AAAp6HgIoHgAACioeAigfAAAK
 Kh4CKCAAAAoqfgIoIQAACgICc0QAAAZ9AQAABAICc0UAAAZ9AgAABCoGKm4CewMAAAQsEgJ7AwAA
-BG89AAAGAhR9AwAABCoAAAATMAUASQAAAAIAABEWCisuBAaUDgRyHgEAcCgiAAAKMxkCBQaaAgQG
+BG89AAAGAhR9AwAABCoAAAATMAUASQAAAAIAABEWCisuBAaUDgRyAAEAcCgiAAAKMxkCBQaaAgQG
 lCgjAAAKDgRzBQAABn0DAAAEBhdYCgYDMs4Cb0MAAAYCb0AAAAYCKEEAAAYqOgIoJAAACgIDfQQA
-AAQqOgIoJAAACgIDfQUAAAQqHgIoJAAACiqufgYAAAQtHnIwAQBw0AcAAAIoJQAACm8mAAAKcycA
+AAQqOgIoJAAACgIDfQUAAAQqHgIoJAAACiqufgYAAAQtHnISAQBw0AcAAAIoJQAACm8mAAAKcycA
 AAqABgAABH4GAAAEKhp+BwAABCoeAoAHAAAEKhp+CAAABCoeAigoAAAKKi5zSwAABoAIAAAEKh4C
 ewkAAAQqIgIDfQkAAAQqHgJ7CgAABCoiAgN9CgAABCoeAnsLAAAEKiICA30LAAAEKh4CewwAAAQq
 IgIDfQwAAAQqHgJ7DQAABCoiAgN9DQAABCoeAnsOAAAEKiICA30OAAAEKh4Cew8AAAQqIgIDfQ8A
@@ -1693,7 +2091,7 @@ BCoeAnsaAAAEKiICA30aAAAEKh4CexsAAAQqIgIDfRsAAAQqHgJ7HAAABCoiAgN9HAAABCoeAnsd
 AAAEKiICA30dAAAEKh4Cex4AAAQqIgIDfR4AAAQqHgJ7HwAABCoiAgN9HwAABCoeAnsgAAAEKiIC
 A30gAAAEKh4CeyEAAAQqIgIDfSEAAAQqHgJ7IgAABCoiAgN9IgAABCoeAnsjAAAEKiICA30jAAAE
 KkJTSkIBAAEAAAAAAAwAAAB2NC4wLjMwMzE5AAAAAAUAbAAAAEgUAAAjfgAAtBQAAMQSAAAjU3Ry
-aW5ncwAAAAB4JwAApAEAACNVUwAcKQAAEAAAACNHVUlEAAAALCkAAAwCAAAjQmxvYgAAAAAAAAAC
+aW5ncwAAAAB4JwAAhAEAACNVUwD8KAAAEAAAACNHVUlEAAAADCkAAAwCAAAjQmxvYgAAAAAAAAAC
 AAABVxWiCQkJAAAA+gEzABYAAAEAAAAjAAAACQAAACMAAACDAAAAWwAAACgAAABhAAAAAgAAAAQA
 AABUAAAAcAAAAAIAAAABAAAABQAAAAEAAAABAAAAAACfCQEAAAAAAAYAlQfKDgYAKQjKDgYA4Qa3
 Dg8APg8AAAYADgfxDAYAeAfxDAYAWQfxDAYAEAjxDAYAtQfxDAYAzgfxDAYAJQfxDAYAQAeuCAoA
@@ -1869,28 +2267,28 @@ Y2VjYXRlZ29yeQBzZXRfd2F0ZXJyZXNpc3RhbmNlY2F0ZWdvcnkAc2V0X2Nhc2VzaXplY2F0ZWdv
 cnkAc2V0X2Nhc2VtYXRlcmlhbGNhdGVnb3J5AGdldF9icmFuZF9jb3VudHJ5AHNldF9icmFuZF9j
 b3VudHJ5AHNldF9icmFuZGNvdW50cnkAZ2V0X2NvbGxlY3Rpb25fcG9wdWxhcml0eQBzZXRfY29s
 bGVjdGlvbl9wb3B1bGFyaXR5AHNldF9jb2xsZWN0aW9ucG9wdWxhcml0eQBnZXRfd2FycmVudHkA
-c2V0X3dhcnJlbnR5AAAAAAB/QwA6AFwAVQBzAGUAcgBzAFwAawBpAG0AYgBlAHIAbAB5AC4AYwBo
-AGEAbgBcAGcAaQB0AFwAVwBhAHQAYwBoAGkAbgBnAFwAagBzAG8AbgB3AGEAdABjAGgAZQBzAF8A
-ZgBpAG4AYQBsAF8AZgBsAGEAdAAuAEoAUwBPAE4AAICbSQBzAE4AdQBsAGwAIABwAHIAbwBwAGUA
-cgB0AHkAIABjAGEAbgBuAG8AdAAgAGIAZQAgAHMAZQB0ACAAdABvACAARgBhAGwAcwBlAC4AIABB
-AHMAcwBpAGcAbgAgAGEAIAB2AGEAbAB1AGUAIAB0AG8AIAB0AGgAZQAgAGMAbwBsAHUAbQBuACAA
-aQBuAHMAdABlAGEAZAAuAAARTwB1AHQAcAB1AHQAIAAwAABxUwBDAF8AYgAzADkAYQBkADcANABk
-AGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAzAGQAYgAyADAAZQBmADAAMQBhAC4AUAByAG8A
-cABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMAZQBzAAAAALE3lDvNKdpIk6SHX744osQABCAB
-AQgDIAABBSABARERBCABAQ4FIAEBEWULBwMOFRE9ARIkEiQEAAEODgYwAQEeAA4ICgEVEjkBEiQG
-FRI5ARIkCCAAFRE9ARMABhURPQESJAQgABMAAyAAAgkgAwESRR0IEkkFIAIBCBwDBwEIBgACCBJJ
-DgUgAR0ICAgAARKAhRGAiQUgABKAjQcgAgEOEoCNCLd6XFYZNOCJCImEXc2AgMyRCDG/OFatNk41
-AwYSFAMGEhgDBhIMAwYSUQMGEl0DBhJhAwYSIAIGDgMGEU0EIAEBAgUgAQERTQsgBAEIHQgdEkUS
-SQUgAQESUQQAABJdBAAAEmEFAAEBEmEEAAASIAMAAAEDIAAOBCAAEU0DKAAOAygAAgQoABFNBAgA
-El0ECAASYQQIABIgCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQgBAAIA
-AAAAACgBACNTQ19iMzlhZDc0ZGJkNTk0NzY3YTEyYjE4M2RiMjBlZjAxYQAABQEAAAAADgEACUZE
-TSBHcm91cAAAHwEAGkNvcHlyaWdodCBAIEZETSBHcm91cCAyMDI1AABJAQAaLk5FVEZyYW1ld29y
-ayxWZXJzaW9uPXY0LjcBAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQu
-NwQBAAAAALQAAADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwg
-bXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
-bj1iNzdhNWM1NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAA
-AAAAAAAAAAAAUEFEUEFEULQAAAB0VQAAAAAAAAAAAACOVQAAACAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAgFUAAAAAAAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAA
+c2V0X3dhcnJlbnR5AAAAAABhQwA6AFwAVwBhAHQAYwBoAGkAbgBnAFwAVwBhAHQAYwBoAGkAbgBn
+AFwAagBzAG8AbgB3AGEAdABjAGgAZQBzAF8AZgBpAG4AYQBsAF8AZgBsAGEAdAAuAEoAUwBPAE4A
+AICbSQBzAE4AdQBsAGwAIABwAHIAbwBwAGUAcgB0AHkAIABjAGEAbgBuAG8AdAAgAGIAZQAgAHMA
+ZQB0ACAAdABvACAARgBhAGwAcwBlAC4AIABBAHMAcwBpAGcAbgAgAGEAIAB2AGEAbAB1AGUAIAB0
+AG8AIAB0AGgAZQAgAGMAbwBsAHUAbQBuACAAaQBuAHMAdABlAGEAZAAuAAARTwB1AHQAcAB1AHQA
+IAAwAABxUwBDAF8AYgAzADkAYQBkADcANABkAGIAZAA1ADkANAA3ADYANwBhADEAMgBiADEAOAAz
+AGQAYgAyADAAZQBmADAAMQBhAC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQByAGMA
+ZQBzAAC1h1LB4AewToXU7vS0QdLvAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFlCwcDDhURPQES
+JBIkBAABDg4GMAEBHgAOCAoBFRI5ARIkBhUSOQESJAggABURPQETAAYVET0BEiQEIAATAAMgAAIJ
+IAMBEkUdCBJJBSACAQgcAwcBCAYAAggSSQ4FIAEdCAgIAAESgIURgIkFIAASgI0HIAIBDhKAjQi3
+elxWGTTgiQiJhF3NgIDMkQgxvzhWrTZONQMGEhQDBhIYAwYSDAMGElEDBhJdAwYSYQMGEiACBg4D
+BhFNBCABAQIFIAEBEU0LIAQBCB0IHRJFEkkFIAEBElEEAAASXQQAABJhBQABARJhBAAAEiADAAAB
+AyAADgQgABFNAygADgMoAAIEKAARTQQIABJdBAgAEmEECAASIAgBAAgAAAAAAB4BAAEAVAIWV3Jh
+cE5vbkV4Y2VwdGlvblRocm93cwEIAQACAAAAAAAoAQAjU0NfYjM5YWQ3NGRiZDU5NDc2N2ExMmIx
+ODNkYjIwZWYwMWEAAAUBAAAAAA4BAAlGRE0gR3JvdXAAAB8BABpDb3B5cmlnaHQgQCBGRE0gR3Jv
+dXAgMjAyNQAASQEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC43AQBUDhRGcmFtZXdvcmtEaXNw
+bGF5TmFtZRIuTkVUIEZyYW1ld29yayA0LjcEAQAAAAC0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5S
+ZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1
+cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3Vy
+Y2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAAVFUAAAAAAAAAAAAA
+blUAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGBVAAAAAAAAAAAAAAAAX0NvckRsbE1haW4AbXNj
+b3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAABgAAIAAAAAA
 AAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABYYAAAEAQAAAAAAAAA
@@ -1919,7 +2317,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAADAAAAKA1AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAADAAAAIA1AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1971,197 +2369,1116 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
               </properties>
               <outputs>
                 <output
-                  refId="Package\Read JSON\Script Component.Outputs[Output 0]"
+                  refId="Package\Load DIM tables\Script Component.Outputs[Output 0]"
                   hasSideEffects="true"
                   name="Output 0">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[name]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[name]"
                       codePage="1252"
                       dataType="str"
                       length="500"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[name]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[name]"
                       name="name" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand]"
                       codePage="1252"
                       dataType="str"
                       length="500"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand]"
                       name="brand" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection]"
                       codePage="1252"
                       dataType="str"
                       length="500"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection]"
                       name="collection" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category]"
                       name="price_category" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[gender]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[gender]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[gender]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[gender]"
                       name="gender" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[movement]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[movement]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[movement]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[movement]"
                       name="movement" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material]"
                       name="case_material" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material_category]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_material_category]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material_category]"
                       name="case_material_category" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance]"
                       name="water_resistance" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_category]"
                       name="water_resistance_category" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_country]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_country]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_country]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_country]"
                       name="brand_country" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_age]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_age]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_age]"
                       name="brand_age" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_price_tier]"
                       name="collection_price_tier" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[warrenty]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[warrenty]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[warrenty]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[warrenty]"
                       name="warrenty" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[power_reserve]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[power_reserve]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[power_reserve]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[power_reserve]"
                       name="power_reserve" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[dial]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[dial]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[dial]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[dial]"
                       name="dial" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[bracelet]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[bracelet]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[bracelet]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[bracelet]"
                       name="bracelet" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[product_price_detail]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[product_price_detail]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[product_price_detail]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[product_price_detail]"
                       name="product_price_detail" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[reference]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[reference]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[reference]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[reference]"
                       name="reference" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_founded_year]"
                       name="brand_founded_year" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[is_price_outlier]"
                       name="is_price_outlier" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_popularity]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_popularity]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[collection_popularity]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_popularity]"
                       name="collection_popularity" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]"
                       name="water_resistance_standardized" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category_improved]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category_improved]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[price_category_improved]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category_improved]"
                       name="price_category_improved" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
                       dataType="decimal"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]"
                       name="case_diameter_numeric" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_size_category]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_size_category]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[case_size_category]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_size_category]"
                       name="case_size_category" />
                     <outputColumn
-                      refId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
+                      refId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
                       codePage="1252"
                       dataType="str"
                       length="50"
-                      lineageId="Package\Read JSON\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_prestige_level]"
                       name="brand_prestige_level" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DIM tables\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Load DIM tables\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="name"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[name]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[brand]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="brand"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[collection]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="500"
+                      cachedName="collection"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[price_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="price_category"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[gender]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="gender"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[gender]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[movement]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="movement"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[movement]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[case_material]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_material"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[case_material_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_material_category"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material_category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[water_resistance]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[water_resistance_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance_category"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[brand_country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_country"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_country]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[collection_price_tier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="collection_price_tier"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_price_tier]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[warrenty]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="warrenty"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[warrenty]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[power_reserve]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="power_reserve"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[power_reserve]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[dial]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="dial"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[dial]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[bracelet]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="bracelet"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[bracelet]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[product_price_detail]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="product_price_detail"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[product_price_detail]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[reference]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="reference"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[reference]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[is_price_outlier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="is_price_outlier"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[is_price_outlier]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[collection_popularity]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="collection_popularity"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_popularity]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[water_resistance_standardized]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="water_resistance_standardized"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[price_category_improved]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="price_category_improved"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category_improved]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[case_diameter_numeric]"
+                      cachedDataType="decimal"
+                      cachedName="case_diameter_numeric"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[case_size_category]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="case_size_category"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_size_category]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[brand_prestige_level]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="brand_prestige_level"
+                      lineageId="Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_prestige_level]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[Copy of brand_age]"
+                      cachedDataType="i4"
+                      cachedName="Copy of brand_age"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Load DIM tables\Sort.Inputs[Sort Input].Columns[Copy of brand_founded_year]"
+                      cachedDataType="i4"
+                      cachedName="Copy of brand_founded_year"
+                      lineageId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DIM tables\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[name]"
+                      name="name">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[name]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand]"
+                      name="brand">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection]"
+                      codePage="1252"
+                      dataType="str"
+                      length="500"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection]"
+                      name="collection">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category]"
+                      name="price_category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[gender]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[gender]"
+                      name="gender">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[gender]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[movement]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[movement]"
+                      name="movement">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[movement]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material]"
+                      name="case_material">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_material_category]"
+                      name="case_material_category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_material_category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance]"
+                      name="water_resistance">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_category]"
+                      name="water_resistance_category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_country]"
+                      name="brand_country">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_country]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_price_tier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_price_tier]"
+                      name="collection_price_tier">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_price_tier]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[warrenty]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[warrenty]"
+                      name="warrenty">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[warrenty]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[power_reserve]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[power_reserve]"
+                      name="power_reserve">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[power_reserve]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[dial]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[dial]"
+                      name="dial">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[dial]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[bracelet]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[bracelet]"
+                      name="bracelet">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[bracelet]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[product_price_detail]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[product_price_detail]"
+                      name="product_price_detail">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[product_price_detail]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[reference]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[reference]"
+                      name="reference">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[reference]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[is_price_outlier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[is_price_outlier]"
+                      name="is_price_outlier">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[is_price_outlier]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_popularity]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[collection_popularity]"
+                      name="collection_popularity">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[collection_popularity]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_standardized]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[water_resistance_standardized]"
+                      name="water_resistance_standardized">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[water_resistance_standardized]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category_improved]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[price_category_improved]"
+                      name="price_category_improved">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[price_category_improved]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_diameter_numeric]"
+                      dataType="decimal"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_diameter_numeric]"
+                      name="case_diameter_numeric">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_diameter_numeric]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_size_category]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[case_size_category]"
+                      name="case_size_category">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[case_size_category]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_prestige_level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_prestige_level]"
+                      name="brand_prestige_level">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Script Component.Outputs[Output 0].Columns[brand_prestige_level]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_age1]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_age1]"
+                      name="brand_age1"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_age]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_founded_year1]"
+                      dataType="i4"
+                      lineageId="Package\Load DIM tables\Sort.Outputs[Sort Output].Columns[brand_founded_year1]"
+                      name="brand_founded_year1"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of brand_founded_year]}</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -2170,15 +3487,20 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
           </components>
           <paths>
             <path
-              refId="Package\Read JSON.Paths[Data Conversion Output]"
-              endId="Package\Read JSON\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              refId="Package\Load DIM tables.Paths[Data Conversion Output]"
+              endId="Package\Load DIM tables\Sort.Inputs[Sort Input]"
               name="Data Conversion Output"
-              startId="Package\Read JSON\Data Conversion.Outputs[Data Conversion Output]" />
+              startId="Package\Load DIM tables\Data Conversion.Outputs[Data Conversion Output]" />
             <path
-              refId="Package\Read JSON.Paths[Output 0]"
-              endId="Package\Read JSON\Data Conversion.Inputs[Data Conversion Input]"
+              refId="Package\Load DIM tables.Paths[Output 0]"
+              endId="Package\Load DIM tables\Data Conversion.Inputs[Data Conversion Input]"
               name="Output 0"
-              startId="Package\Read JSON\Script Component.Outputs[Output 0]" />
+              startId="Package\Load DIM tables\Script Component.Outputs[Output 0]" />
+            <path
+              refId="Package\Load DIM tables.Paths[Sort Output]"
+              endId="Package\Load DIM tables\Load raw_data.Inputs[OLE DB Destination Input]"
+              name="Sort Output"
+              startId="Package\Load DIM tables\Sort.Outputs[Sort Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -2197,51 +3519,55 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
-          Size="136,42.6666666666667"
-          Id="Package\Read JSON"
+          Size="159,42"
+          Id="Package\Load DIM tables"
           TopLeft="83.6249965075404,249.763155212776" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
   <TaskHost
-    design-time-name="Package\Read JSON">
+    design-time-name="Package\Load DIM tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="166.666666666667,42"
-          Id="Package\Read JSON\Script Component"
-          TopLeft="5.5,5.5" />
+          Size="167,42"
+          Id="Package\Load DIM tables\Script Component"
+          TopLeft="59.8749975692482,5.5" />
         <NodeLayout
-          Size="158.666666666667,42.6666666666667"
-          Id="Package\Read JSON\Data Conversion"
-          TopLeft="254.374988628552,206.631576678595" />
+          Size="152,42"
+          Id="Package\Load DIM tables\Load raw_data"
+          TopLeft="84.624994607642,404.631573681108" />
+        <NodeLayout
+          Size="159,43"
+          Id="Package\Load DIM tables\Data Conversion"
+          TopLeft="168.124992484227,127.263156497413" />
         <EdgeLayout
-          Id="Package\Read JSON.Paths[Output 0]"
-          TopLeft="88.8333333333333,47.5">
+          Id="Package\Load DIM tables.Paths[Output 0]"
+          TopLeft="143.208330902582,47.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="244.874988628552,159.131576678595"
+              EndConnector="104.249994914979,79.7631564974125"
               Start="0,0"
-              End="244.874988628552,151.631576678595">
+              End="104.249994914979,72.2631564974125">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,75.5657883392973" />
+                    End="0,35.8815782487063" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,75.5657883392973"
-                    Point2="0,79.5657883392973"
-                    Point3="4,79.5657883392973" />
+                    Point1="0,35.8815782487063"
+                    Point2="0,39.8815782487063"
+                    Point3="4,39.8815782487063" />
                   <mssgle:LineSegment
-                    End="240.874988628552,79.5657883392973" />
+                    End="100.249994914979,39.8815782487063" />
                   <mssgle:CubicBezierSegment
-                    Point1="240.874988628552,79.5657883392973"
-                    Point2="244.874988628552,79.5657883392973"
-                    Point3="244.874988628552,83.5657883392973" />
+                    Point1="100.249994914979,39.8815782487063"
+                    Point2="104.249994914979,39.8815782487063"
+                    Point3="104.249994914979,43.8815782487063" />
                   <mssgle:LineSegment
-                    End="244.874988628552,151.631576678595" />
+                    End="104.249994914979,72.2631564974125" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2251,45 +3577,94 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="174.666666666667,42.6666666666667"
-          Id="Package\Read JSON\OLE DB Destination"
-          TopLeft="432.499980665744,328.421049025581" />
+          Size="99,42"
+          Id="Package\Load DIM tables\Sort"
+          TopLeft="71.5,251.5" />
         <EdgeLayout
-          Id="Package\Read JSON.Paths[Data Conversion Output]"
-          TopLeft="333.708321961885,249.298243345261">
+          Id="Package\Load DIM tables.Paths[Data Conversion Output]"
+          TopLeft="247.624992484227,170.263156497413">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="186.124992037192,79.1228056803194"
+              EndConnector="-126.624992484227,81.236843502587"
               Start="0,0"
-              End="186.124992037192,71.6228056803194">
+              End="-126.624992484227,73.736843502587">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.5614028401597" />
+                    End="0,36.6184217512935" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,35.5614028401597"
-                    Point2="0,39.5614028401597"
-                    Point3="4,39.5614028401597" />
+                    Point1="0,36.6184217512935"
+                    Point2="0,40.6184217512935"
+                    Point3="-4,40.6184217512935" />
                   <mssgle:LineSegment
-                    End="182.124992037192,39.5614028401597" />
+                    End="-122.624992484227,40.6184217512935" />
                   <mssgle:CubicBezierSegment
-                    Point1="182.124992037192,39.5614028401597"
-                    Point2="186.124992037192,39.5614028401597"
-                    Point3="186.124992037192,43.5614028401597" />
+                    Point1="-122.624992484227,40.6184217512935"
+                    Point2="-126.624992484227,40.6184217512935"
+                    Point3="-126.624992484227,44.6184217512935" />
                   <mssgle:LineSegment
-                    End="186.124992037192,71.6228056803194" />
+                    End="-126.624992484227,73.736843502587" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load DIM tables.Paths[Sort Output]"
+          TopLeft="121,293.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="39.624994607642,111.131573681108"
+              Start="0,0"
+              End="39.624994607642,103.631573681108">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.565786840554" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,51.565786840554"
+                    Point2="0,55.565786840554"
+                    Point3="4,55.565786840554" />
+                  <mssgle:LineSegment
+                    End="35.624994607642,55.565786840554" />
+                  <mssgle:CubicBezierSegment
+                    Point1="35.624994607642,55.565786840554"
+                    Point2="39.624994607642,55.565786840554"
+                    Point3="39.624994607642,59.565786840554" />
+                  <mssgle:LineSegment
+                    End="39.624994607642,103.631573681108" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="11.812497303821,60.565786840554,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load DIM tables\Load raw_data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

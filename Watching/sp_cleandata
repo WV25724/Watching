@@ -1,0 +1,65 @@
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE OR ALTER PROCEDURE dbo.clean_brand_data
+AS
+BEGIN
+	SET NOCOUNT ON;
+	BEGIN TRANSACTION;
+
+    INSERT INTO dim_brand (
+        name,
+        country,
+        founded,
+        prestige
+    )
+    SELECT DISTINCT
+        brand_name,
+        brand_country,
+        brand_founded_year,
+        REPLACE(
+            REPLACE(
+                REPLACE(
+                    REPLACE(
+                        REPLACE(brand_prestige_level, 'Orta Prestij', 'Medium Prestigious'),
+                    'Atok Prestijli', 'Very Prestigious'),
+                'Prestijli', 'Prestigious'),
+            'Ultra Prestijli', 'Extremely Prestigious'),
+        'Giriş Seviyesi', 'Entry Level')
+    FROM raw_data;
+
+    UPDATE dim_brand
+    SET founded = 1992
+    WHERE name = 'bell & ross';
+
+    UPDATE dim_brand
+    SET founded = 1822
+    WHERE name = 'Bovet';
+
+    UPDATE dim_brand
+    SET founded = 1955
+    WHERE name = 'Corum';
+    
+    UPDATE dim_brand
+    SET founded = 1828
+    WHERE name = 'H. Moser & Cie.';    
+ 
+    UPDATE dim_brand
+    SET founded = 1917
+    WHERE name = 'Rado';    
+
+    UPDATE dim_brand
+    SET founded = 1904
+    WHERE name = 'Oris';    
+
+    UPDATE dim_brand
+    SET founded = 2012
+    WHERE name = 'Sevenfriday';    
+
+    UPDATE dim_brand
+    SET founded = 1860
+    WHERE name = 'Tag Heuer';    
+    COMMIT;
+END
+GO
